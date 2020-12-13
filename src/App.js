@@ -1,11 +1,15 @@
 
 function App() {
-  function  get(url,args) {
+  function  get(url,args,option) {
     return new Promise(function(resolve,reject){
       let req=new XMLHttpRequest()
       console.log(url)
       req.open('POST',url)
-      req.setRequestHeader("Content-Type", "application/json");
+      req.setRequestHeader("Content-Type", "application/json")
+      if(option){
+        console.log('设置')
+        req.setRequestHeader("WWW-Authenticate", `JWT realm=\"api\"`)
+      }
       req.onload=function(){
         if(req.status===200){
           resolve(req.response)
@@ -24,7 +28,7 @@ function App() {
     console.log('haha',response)
     let token=JSON.parse(response)["token"]
     console.log(token)
-    get('/blog/api/category/',{"Authorization":"JWT "+token}).then((response1)=>{
+    get('/blog/api/category/',{"Authorization":"JWT "+token},true).then((response1)=>{
       console.log(response1)
     })
   //  {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIsInVzZXJuYW1lIjoiXHU2ZDRiXHU4YmQ1MTIxNCIsImV4cCI6MTYwNzk1MDU3OSwiZW1haWwiOiIiLCJvcmlnX2lhdCI6MTYwNzg2NDE3OX0.FxuWOUlObuH9F7NWnu2_aSioSpAD3JrOSoEQh0qlS5Y"}
