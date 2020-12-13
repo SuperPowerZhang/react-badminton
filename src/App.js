@@ -1,11 +1,11 @@
 
 function App() {
-  function  get(url) {
+  function  get(url,args) {
     return new Promise(function(resolve,reject){
       let req=new XMLHttpRequest()
-      console.log(111111)
       console.log(url)
-      req.open('GET',url)
+      req.open('POST',url)
+      req.setRequestHeader("Content-Type", "application/json");
       req.onload=function(){
         if(req.status===200){
           resolve(req.response)
@@ -16,11 +16,19 @@ function App() {
       req.onerror=function () {
         reject(Error("Network Error"))
       }
-      req.send()
+      console.log(JSON.stringify(args))
+      req.send(JSON.stringify(args))
     })
   }
-  get('http://badminton.amberwuwu.com/blog/api/category/').then((response)=>{
-    console.log('成功了，真意外',response)
+  get('/new_user/api/login',{"username":"测试1214","password": "ceshi1214"}).then((response)=>{
+    console.log('haha',response)
+    let token=JSON.parse(response)["token"]
+    console.log(token)
+    get('/blog/api/category/',{"Authorization":"JWT "+token}).then((response1)=>{
+      console.log(response1)
+    })
+  //  {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIsInVzZXJuYW1lIjoiXHU2ZDRiXHU4YmQ1MTIxNCIsImV4cCI6MTYwNzk1MDU3OSwiZW1haWwiOiIiLCJvcmlnX2lhdCI6MTYwNzg2NDE3OX0.FxuWOUlObuH9F7NWnu2_aSioSpAD3JrOSoEQh0qlS5Y"}
+  // 后面要在发送请求的时候加上token，Authorization: JWT 上面的token
   },(error)=>{
     console.error('oh no',error)
   })
