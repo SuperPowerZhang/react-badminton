@@ -136,7 +136,6 @@ div a.right{
 
 const User=({user,changeUsername,changeWeChat,changePassword,renewPassword})=>{
     const {username,weChat,password,new_password}=user
-    console.log(changeUsername)
     return (
         <>
         <Header>
@@ -162,7 +161,7 @@ const User=({user,changeUsername,changeWeChat,changePassword,renewPassword})=>{
         </label>
         <label>
             <span>新密码:</span>
-            <input type="password" onChange={e=>renewPassword(e.target.value)} name='new_password' required="new_password" />
+            <input type="password" onChange={e=>renewPassword(e.target.value)} name='new_password' required="new_password" value={new_password}/>
         </label>
         <button type="submit" className="submit">确定</button>
     </form>
