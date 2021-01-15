@@ -1,12 +1,24 @@
-import {Nav} from "../components/Nav";
 import React from 'react'
-
+import NavConnect from "../container/NavConnect";
+import styled from 'styled-components'
+const Header=styled.header`
+max-width: 1200px;
+@media (max-width: 600px) {
+width: 100%;
+}
+`
 const Index=()=>{
     return (
-        <div>
-            一进来这里展示activities,底下给到注册和登录链接
-            <Nav/>
-        </div>
+        <>
+            <Header>
+                <NavConnect/>
+            </Header>
+
+            一进来这里展示activities
+
+        </>
+
+
     )
 }
 export {Index}

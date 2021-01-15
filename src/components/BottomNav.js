@@ -36,29 +36,12 @@ background-color: #fff;
         }
     }
 `
-const Nav=({username,loginState})=>{
-    const eles=loginState?(
-        <>
-            <li>
-                {/*<i className="iconfont">&#xe630;</i>*/}
-                <span>用户: {username}</span>
-            </li>
-            <li>
-                <a  href = "" > 退出登录 </a>
-            </li>
-        </>
-    ):(
-        <>
-            <li>
-                <NavLink to='/login' >登录</NavLink>
-            </li>
-            <li>
-                <NavLink to='/register'> 注册</NavLink>
-            </li>
-        </>
-    )
+const BottomNav=()=>{
     return(
-        <NavWrapper>{eles}</NavWrapper>
+        <NavWrapper>
+            <li> <NavLink to='/register' >立即注册</NavLink></li>
+            <li>                <NavLink to='/password_modify'> 修改密码</NavLink>            </li>
+        </NavWrapper>
     )
 }
-export {Nav}
+export {BottomNav}

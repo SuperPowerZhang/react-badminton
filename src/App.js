@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {Index} from './View'
 import React from 'react'
 import {UserLoginConnect} from "./container/UserLoginConnect";
+import {PasswordModify} from "./View/passwordModify";
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
               </Route>
               <Route path="/login" component={UserLoginConnect} >
                   <UserLoginConnect />
+              </Route>
+              <Route path="/password_modify" component={PasswordModify} >
+                  <PasswordModify />
               </Route>
           </Switch>
       </Router>
