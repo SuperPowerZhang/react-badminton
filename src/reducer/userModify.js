@@ -1,16 +1,25 @@
 const initState={
-    user:{
-        username:'张三',
-        weChat:'haha',
-        password:'111111',
+    user_register:{
+        username:'',
+        weChat:'',
+        password:'',
         new_password:''
+    },
+    user_login:{
+        username:'李四来登录',
+        password:'22222',
+        token: ""
     }
-}
+};
 const CHANGE_USERNAME='CHANGE_USERNAME';
 const CHANGE_WECHAT='CHANGE_WECHAT'
 const CHANGE_PASSWORD='CHANGE_PASSWORD';
 const RENEW_PASSWORD='RENEW_PASSWORD';
-
+const CHANGE_LOGINUSERNAME='CHANGE_LOGINUSERNAME';
+const CHANGE_LOGINPASSWORD='CHANGE_LOGINPASSWORD';
+const LOGIN ='LOGIN';
+const REGISTER='REGISTER';
+const SETTOKEN='SETTOKEN'
 function changeUsername(value){
     return{
         type:CHANGE_USERNAME,
@@ -35,23 +44,57 @@ function renewPassword(value){
         value
     }
 }
+function changeLoginUsername(value){
+    return{
+        type:CHANGE_LOGINUSERNAME,
+        value
+    }
+}
+function changeLoginPassword(value){
+    return{
+        type:CHANGE_LOGINPASSWORD,
+        value
+    }
+}
+function register(){
+    return{
+        type:REGISTER
+    }
+}
+function login(){
+    return{
+        type:LOGIN
+    }
+}
+function setToken(value) {
+    return{
+        type:SETTOKEN,
+        value
+    }
+}
 
 
-
-const userModifier=(state=initState,action)=>{
+const user_newModifier=(state=initState,action)=>{
     switch(action.type){
         case 'CHANGE_USERNAME':
-            return {...state,user: {...state.user,username:action.value}}
+            return {...state,user_register: {...state.user_register,username:action.value}}
         case 'CHANGE_WECHAT':
-            return {...state,user: {...state.user,weChat:action.value}}
+            return {...state,user_register: {...state.user_register,weChat:action.value}}
         case 'CHANGE_PASSWORD':
-            return {...state,user: {...state.user,password:action.value}}
+            return {...state,user_register: {...state.user_register,password:action.value}}
         case 'RENEW_PASSWORD':
-            return {...state,user: {...state.user,new_password:action.value}}
+            return {...state,user_register: {...state.user_register,new_password:action.value}}
+        case 'CHANGE_LOGINUSERNAME':
+            return {...state,user_login: {...state.user_login,username:action.value}}
+        case 'CHANGE_LOGINPASSWORD':
+            return {...state,user_login: {...state.user_login,password:action.value}}
+        case 'LOGIN':
+            return {...state,user_login: {...initState.user_login}}
+        case 'REGISTER':
+            return {...state,user_register: {...initState.user_register}}
+        case 'SETTOKEN':
+            return{...state, user_login:{...state.user_login,token: setToken(action.value) }}
     }
     return state;
-    //直接提交了
-    // case 'SUBMIT':
-    //     return {...state,}
 }
-export  {changeUsername,changeWeChat,changePassword,renewPassword,userModifier};
+export  {user_newModifier,changeUsername,changeWeChat,changePassword,renewPassword,changeLoginUsername,changeLoginPassword,register,login,setToken};

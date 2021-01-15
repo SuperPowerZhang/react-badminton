@@ -1,10 +1,10 @@
 import {connect} from "react-redux";
-import User from '../View/user';
-import {changeUsername,changeWeChat,changePassword,renewPassword} from '../reducer/userModify'
+import Register from '../View/register';
+import {changeUsername, changeWeChat, changePassword, renewPassword, register} from '../reducer/userModify'
 
 const mapStateToProps=state=>{
     return {
-        user:state.user
+        user_register:state.user_register
     }
 };
 const mapDispatchToProps=dispatch=>{
@@ -20,9 +20,12 @@ const mapDispatchToProps=dispatch=>{
         },
         renewPassword:value=>{
             dispatch(renewPassword(value))
+        },
+        register:()=>{
+            dispatch(register())
         }
     }
 };
-const NewUserInfo=connect(mapStateToProps,mapDispatchToProps)(User);
+const NewUserInfo=connect(mapStateToProps,mapDispatchToProps)(Register);
 
 export {NewUserInfo};

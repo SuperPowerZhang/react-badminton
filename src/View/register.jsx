@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import {Form} from '../components/form'
+import {post} from "../js/post";
 
 const Header = styled.header`
 margin-top: 60px;
@@ -44,92 +46,32 @@ const Main = styled.main`
         margin-bottom: 10px;
       }
     }
-    form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-      @media (max-width: 600px) {
-        width: 100%;
-      }
-      > h3 {
-        font-size: 26px;
-        height: 27px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        @media (max-width: 600px) {
-          font-size: 20px;
-          margin-top: 10px;
-          margin-bottom: 10px;
-        }
-      }
-      > label {
-        display: flex;
-        margin-top: 10px;
-        height: 54px;
-        @media (max-width: 600px) {
-          width: 100%;
-          margin-top: 6px;
-          height: 42px;
-        }
-        > span {
-          width: 80px;
-          @media (max-width: 600px) {
-          line-height: 42px;
-          }
-        }
-        > input {
-          flex-grow: 1;
-          height: 40px;
-          border: 1px solid rgb(174, 191, 207);
-          border-radius: 6px;
-          margin-top: 4px;
-          margin-bottom: 8px;
-          font-size: 18px;
-          padding: 5px 16px;
-          @media (max-width: 600px) {
-            height: 28px;
-            font-size: 16px;
-            border-radius: 4px;
-            padding: 3px 10px;
-          }
-        }
-      }
-      > .submit {
-        height: 40px;
-        color: #fff;
-        text-align: center;
-        border: 1px solid rgb(174, 191, 207);
-        border-radius: 6px;
-        margin-top: 24px;
-        margin-bottom: 8px;
-        font-size: 18px;
-        padding: 5px 16px;
-        background-color: rgb(46, 164, 79);
-        @media (max-width: 600px) {
-          width: 100%;
-          display: flex;
-          flex-grow: 1;
-          justify-content: space-around;
-          margin-top: 20px;
-          height: 28px;
-          font-size: 16px;
-          border-radius: 4px;
-          padding: 3px 10px;
-        }
-      }
-    }
   }
 `;
 
-const User = ({
-  user,
+const Register = ({
+  user_register,
   changeUsername,
   changeWeChat,
   changePassword,
   renewPassword,
+    register
 }) => {
-  const { username, weChat, password, new_password } = user;
-  console.log("user加载了");
+  const { username, weChat, password, new_password } = user_register;
+  const onSubmit=(e)=>{
+    e.preventDefault();
+    post('/new_user/api/register/',{
+      "username": username,
+      "weChat": weChat,
+      "password": password
+    }).then(({code,msg,data})=>{
+      console.log(msg)
+    },(error)=>{
+      console.log('报错了')
+      console.log(error)
+    })
+    register();
+  }
   return (
     <>
       <Header>
@@ -138,7 +80,7 @@ const User = ({
       <Main>
         <section>
           <p className="tips">提示话术——可能没有</p>
-          <form className="form" action="" method="post">
+          <Form className="form" action="" method="post">
             <h3> 标题替换</h3>
             <label>
               <span>用户名:</span>
@@ -182,14 +124,14 @@ const User = ({
                 value={new_password}
               />
             </label>
-            <button type="submit" className="submit">
+            <button type="submit" className="submit" onClick={onSubmit}>
               确定
             </button>
-          </form>
+          </Form>
         </section>
       </Main>
     </>
   );
 };
 
-export default User;
+export default Register;
