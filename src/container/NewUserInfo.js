@@ -25,4 +25,4 @@ const mapDispatchToProps=dispatch=>{
 };
 const NewUserInfo=connect(mapStateToProps,mapDispatchToProps)(User);
 
-export default NewUserInfo;
+export {NewUserInfo};

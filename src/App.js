@@ -1,4 +1,7 @@
-import NewUserInfo from './container/NewUserInfo'
+import {NewUserInfo} from './container/NewUserInfo'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {Index} from './View'
+import React from 'react'
 
 function App() {
   // function  get(url,args,option) {
@@ -38,14 +41,16 @@ function App() {
   //   console.error('oh no',error)
   // })
   return (
-    <div className="App">
-      <NewUserInfo/>
-      <header className="App-header">
-        <p>
-         hello
-        </p>
-      </header>
-    </div>
+      <Router>
+          <Switch>
+              <Route  path="/" exact component={Index} >
+                  <Index/>
+              </Route >
+              <Route path="/new_user/api/register" component={NewUserInfo} >
+                  <NewUserInfo />
+              </Route>
+          </Switch>
+      </Router>
   );
 }
 
