@@ -1,6 +1,4 @@
 const initState={
-
-
     user_register:{
         username:'',
         weChat:'',
