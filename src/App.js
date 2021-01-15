@@ -5,25 +5,6 @@ import React from 'react'
 import {UserLoginConnect} from "./container/UserLoginConnect";
 
 function App() {
-  // function  get(url,args,option) {
-  //   return new Promise(function(resolve,reject){
-  //     let req=new XMLHttpRequest()
-  //     console.log(url)
-  //
-  //
-  //     if(option){
-  //       console.log('设置')
-  //       req.setRequestHeader("WWW-Authenticate", `JWT realm=\"api\"`)
-  //     }
-  //
-  //     req.onerror=function () {
-  //       reject(Error("Network Error"))
-  //     }
-  //     console.log(JSON.stringify(args))
-  //
-  //   })
-  // }
-
   return (
       <Router>
           <Switch>

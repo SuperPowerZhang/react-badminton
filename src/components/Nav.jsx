@@ -21,7 +21,7 @@ a{
     }
 }
 `
-const BottomNav=()=>{
+const Nav=()=>{
     return(
         <NavWrapper>
         <NavLink to='/new_user/api/login' >登录</NavLink>
@@ -29,4 +29,4 @@ const BottomNav=()=>{
         </NavWrapper>
     )
 }
-export {BottomNav}
+export {Nav}

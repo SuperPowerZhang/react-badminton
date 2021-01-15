@@ -1,14 +1,22 @@
 import {Form} from "../components/form";
 import {post} from "../js/post";
-
-const Login=({user_login,changeLoginUsername,changeLoginPassword,login})=>{
-const {username,password}=user_login;
+import styled from 'styled-components'
+const Token=styled.div`
+border: 1px solid red;
+width: 200px;
+height: 40px;
+`
+const Login=({user_login,changeLoginUsername,changeLoginPassword,login,setToken,toggleLoginState})=>{
+const {username,password,state}=user_login;
+    console.log(state)
 const onSubmit=(e)=>{
     e.preventDefault();
     console.log(username,password);
     post('/new_user/api/login',{"username":"测试1214","password": "ceshi1214"}).then(
         (response)=>{
-            console.log('haha',response)
+            console.log(typeof response,(JSON.parse(response)).token);
+            setToken((JSON.parse(response)).token);
+            toggleLoginState()
         }
     );
     login();
@@ -48,6 +56,9 @@ const onSubmit=(e)=>{
                         value={password}
                     />
                 </label>
+                <Token >
+                    {JSON.stringify(state)}
+                </ Token>
                 <button type="submit" className="submit" onClick={onSubmit}>
                     确定
                 </button>
