@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import Register from '../View/register';
-import {changeUsername, changeWeChat, changePassword, renewPassword, register} from '../reducer/userModify'
+import {changeUsername, changeWeChat, changePassword, renewPassword, register} from '../reducer/actions'
 
 const mapStateToProps=state=>{
     return {

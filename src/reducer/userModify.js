@@ -12,79 +12,7 @@ const initState={
         token: ""
     }
 };
-const CHANGE_USERNAME='CHANGE_USERNAME';
-const CHANGE_WECHAT='CHANGE_WECHAT'
-const CHANGE_PASSWORD='CHANGE_PASSWORD';
-const RENEW_PASSWORD='RENEW_PASSWORD';
-const CHANGE_LOGINUSERNAME='CHANGE_LOGINUSERNAME';
-const CHANGE_LOGINPASSWORD='CHANGE_LOGINPASSWORD';
-const LOGIN ='LOGIN';
-const REGISTER='REGISTER';
-const SETTOKEN='SETTOKEN';
-const SETLOGINSTATETRUE='SETLOGINSTATETRUE'
-const SETLOGINSTATETRUEFALSE='SETLOGINSTATETRUEFALSE'
-function changeUsername(value){
-    return{
-        type:CHANGE_USERNAME,
-        value
-    }
-}
-function changeWeChat(value){
-    return{
-        type:CHANGE_WECHAT,
-        value
-    }
-}
-function changePassword(value){
-    return{
-        type:CHANGE_PASSWORD,
-        value
-    }
-}
-function renewPassword(value){
-    return{
-        type:RENEW_PASSWORD,
-        value
-    }
-}
-function changeLoginUsername(value){
-    return{
-        type:CHANGE_LOGINUSERNAME,
-        value
-    }
-}
-function changeLoginPassword(value){
-    return{
-        type:CHANGE_LOGINPASSWORD,
-        value
-    }
-}
-function register(){
-    return{
-        type:REGISTER
-    }
-}
-function login(){
-    return{
-        type:LOGIN
-    }
-}
-function setToken(value) {
-    return{
-        type:SETTOKEN,
-        value
-    }
-}
-function setLoginStateTrue() {
-return{
-    type:SETLOGINSTATETRUE
-}
-}
-function setLoginStateFalse() {
-    return{
-        type:SETLOGINSTATETRUEFALSE
-    }
-}
+
 
 const user_newModifier=(state=initState,action)=>{
     switch(action.type){
@@ -114,6 +42,4 @@ const user_newModifier=(state=initState,action)=>{
     }
     return state;
 }
-export  {user_newModifier,
-    changeUsername,changeWeChat,changePassword,renewPassword,
-    changeLoginUsername,changeLoginPassword,register,login,setToken,setLoginStateTrue,setLoginStateFalse};
+export  {user_newModifier}

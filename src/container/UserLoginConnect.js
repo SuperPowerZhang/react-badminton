@@ -4,7 +4,7 @@ import {
     changeLoginUsername,
     changeLoginPassword,
     login, setToken, setLoginStateTrue, setLoginStateFalse
-} from '../reducer/userModify'
+} from '../reducer/actions'
 
 const mapStateToProps=state=>{
     return {

@@ -1,12 +1,7 @@
 import {Form} from "../components/form";
 import {post} from "../js/post";
-import styled from 'styled-components'
 import {BottomNav} from "../components/BottomNav";
-const Token=styled.div`
-border: 1px solid red;
-width: 200px;
-height: 40px;
-`
+
 const Login=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLoginStateTrue})=>{
 const {username,password,state}=user_login;
     console.log(state)
@@ -47,9 +42,6 @@ const onSubmit=(e)=>{
                         value={password}
                     />
                 </label>
-                <Token >
-                    {JSON.stringify(state)}
-                </ Token>
                 <button type="submit" className="submit" onClick={onSubmit}>
                     确定
                 </button>

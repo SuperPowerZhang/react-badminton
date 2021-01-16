@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {Nav} from "../components/Nav";
-import {setLoginStateTrue,setLoginStateFalse,login} from "../reducer/userModify";
+import {setLoginStateTrue,setLoginStateFalse,login} from "../reducer/actions";
 
 const mapStateToProps=state=>{
     return {
