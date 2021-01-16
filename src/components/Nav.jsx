@@ -40,7 +40,9 @@ const Nav=({username,loginState})=>{
     const eles=loginState?(
         <>
             <li>
-                {/*<i className="iconfont">&#xe630;</i>*/}
+                <svg className="icon" aria-hidden="true">
+                    <use xlinkHref="#icon-badminton"></use>
+                </svg>
                 <span>用户: {username}</span>
             </li>
             <li>
