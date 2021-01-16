@@ -7,8 +7,8 @@ const initState={
     },
     user_login:{
         state:false,
-        username:'000111222',
-        password:'000111222',
+        username:'',
+        password:'',
         token: ""
     }
 };

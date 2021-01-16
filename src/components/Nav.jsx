@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {NavLink} from "react-router-dom";
 import React from "react";
+import {login} from "../reducer/userModify";
 const NavWrapper=styled.ul`
 max-width: 1200px;
 margin-top: 40px;
@@ -36,7 +37,13 @@ background-color: #fff;
         }
     }
 `
-const Nav=({username,loginState,setLoginStateFalse})=>{
+const Nav=({username,loginState,setLoginStateFalse,login})=>{
+    console.log(username,loginState);
+    const onLogout=()=>{
+        console.log(11111)
+        login();
+        setLoginStateFalse();
+    }
     const eles=loginState?(
         <>
             <li>
@@ -46,7 +53,7 @@ const Nav=({username,loginState,setLoginStateFalse})=>{
                 <span>用户: {username}</span>
             </li>
             <li>
-                <span className="fakeA" onClick={setLoginStateFalse}>退出登录 </span>
+                <span className="fakeA" onClick={onLogout}>退出登录 </span>
             </li>
         </>
     ):(

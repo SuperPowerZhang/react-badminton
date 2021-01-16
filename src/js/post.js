@@ -3,8 +3,10 @@ export function post(url,data) {
         let req=new XMLHttpRequest();
         req.open('POST',url);
         req.setRequestHeader("Content-Type", "application/json");
+        console.log(JSON.stringify(data));
         req.onload=function(){
-                  if(req.status===200){
+            console.log(req.responseText)
+                  if(req.status>=200&&req.status<400){
                     resolve(req.response)
                   }else {
                     reject (Error(req.response))

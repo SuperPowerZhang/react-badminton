@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {Nav} from "../components/Nav";
-import {setLoginStateTrue,setLoginStateFalse} from "../reducer/userModify";
+import {setLoginStateTrue,setLoginStateFalse,login} from "../reducer/userModify";
 
 const mapStateToProps=state=>{
     return {
@@ -15,7 +15,11 @@ const mapDispatchToProps=dispatch=>{
         },
         setLoginStateFalse:()=>{
             dispatch(setLoginStateFalse())
+        },
+        login:()=>{
+            dispatch(login())
         }
+
     }
 }
 

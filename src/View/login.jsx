@@ -7,7 +7,7 @@ border: 1px solid red;
 width: 200px;
 height: 40px;
 `
-const Login=({user_login,changeLoginUsername,changeLoginPassword,login,setToken,setLoginStateTrue})=>{
+const Login=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLoginStateTrue})=>{
 const {username,password,state}=user_login;
     console.log(state)
 const onSubmit=(e)=>{
@@ -18,9 +18,8 @@ const onSubmit=(e)=>{
             console.log(typeof response,(JSON.parse(response)).token);
             setToken((JSON.parse(response)).token);
             setLoginStateTrue();
-            //TODO 这里刷新页面了
+            //TODO 这里刷新页面了(1)用户体验不好（2）登录状态丢失
             window.open(`/`,"_self")
-            // login();
         }
     );
 
