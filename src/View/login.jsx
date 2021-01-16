@@ -22,23 +22,11 @@ const onSubmit=(e)=>{
             window.open(`/`,"_self")
         }
     );
-
-    // get().then((response)=>{
-    //
-    //   let token=JSON.parse(response)["token"]
-    //   console.log(token)
-    //   get('/blog/api/category/',{"Authorization":"JWT "+token},true).then((response1)=>{
-    //     console.log(response1)
-    //   })
-    // //  {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIsInVzZXJuYW1lIjoiXHU2ZDRiXHU4YmQ1MTIxNCIsImV4cCI6MTYwNzk1MDU3OSwiZW1haWwiOiIiLCJvcmlnX2lhdCI6MTYwNzg2NDE3OX0.FxuWOUlObuH9F7NWnu2_aSioSpAD3JrOSoEQh0qlS5Y"}
-    // // 后面要在发送请求的时候加上token，Authorization: JWT 上面的token
-    // },(error)=>{
-    //   console.error('oh no',error)
-    // })
 };
     return(
         <>
             <Form>
+                <h3>登录</h3>
                 <label>
                 <span>用户名:</span>
                 <input

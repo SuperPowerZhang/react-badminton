@@ -9,7 +9,7 @@ export function post(url,data) {
                   if(req.status>=200&&req.status<400){
                     resolve(req.response)
                   }else {
-                    reject (Error(req.response))
+                    reject (req.response)
                   }
         };
         req.send(JSON.stringify(data))

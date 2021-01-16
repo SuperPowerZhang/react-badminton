@@ -58,6 +58,7 @@ const Register = ({
     register
 }) => {
   const { username, weChat, password, new_password } = user_register;
+  let tips=null;
   const onSubmit=(e)=>{
     e.preventDefault();
     post('/new_user/api/register/',{
@@ -67,8 +68,11 @@ const Register = ({
     }).then(({code,msg,data})=>{
       console.log(msg)
     },(error)=>{
+      let t=(JSON.parse(error)).username[0];
       console.log('报错了')
-      console.log(error)
+      tips= <p className="tips">{t}</p>;
+      //TODO tips不会自己更新在页面上，为啥呀
+      console.log(tips)
     })
     register();
   }
@@ -79,9 +83,9 @@ const Register = ({
       </Header>
       <Main>
         <section>
-          <p className="tips">提示话术——可能没有</p>
+          {tips}
           <Form className="form" action="" method="post">
-            <h3> 标题替换</h3>
+            <h3>注册</h3>
             <label>
               <span>用户名:</span>
               <input
