@@ -3,7 +3,7 @@ import {Login} from '../View/login';
 import {
     changeLoginUsername,
     changeLoginPassword,
-    login, setToken, toggleLoginState
+    login, setToken, setLoginStateTrue, setLoginStateFalse
 } from '../reducer/userModify'
 
 const mapStateToProps=state=>{
@@ -25,8 +25,11 @@ const mapDispatchToProps=dispatch=>{
         setToken:value=>{
             dispatch(setToken(value))
         },
-        toggleLoginState:()=>{
-            dispatch(toggleLoginState())
+        setLoginStateTrue:()=>{
+            dispatch(setLoginStateTrue())
+        },
+        setLoginStateFalse:()=>{
+            dispatch(setLoginStateFalse())
         }
     }
 };

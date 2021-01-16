@@ -7,7 +7,7 @@ border: 1px solid red;
 width: 200px;
 height: 40px;
 `
-const Login=({user_login,changeLoginUsername,changeLoginPassword,login,setToken,toggleLoginState})=>{
+const Login=({user_login,changeLoginUsername,changeLoginPassword,login,setToken,setLoginStateTrue})=>{
 const {username,password,state}=user_login;
     console.log(state)
 const onSubmit=(e)=>{
@@ -17,10 +17,13 @@ const onSubmit=(e)=>{
         (response)=>{
             console.log(typeof response,(JSON.parse(response)).token);
             setToken((JSON.parse(response)).token);
-            toggleLoginState()
+            setLoginStateTrue();
+            //TODO 这里刷新页面了
+            window.open(`/`,"_self")
+            // login();
         }
     );
-    login();
+
     // get().then((response)=>{
     //
     //   let token=JSON.parse(response)["token"]

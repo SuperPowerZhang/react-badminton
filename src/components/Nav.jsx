@@ -18,7 +18,7 @@ background-color: #fff;
     >i{
             font-size: 26px;
         }
-    >a {
+    >a,.fakeA {
             font-weight: 700;
             font-size: 16px;
             color: rgb(3, 102, 214);
@@ -36,7 +36,7 @@ background-color: #fff;
         }
     }
 `
-const Nav=({username,loginState})=>{
+const Nav=({username,loginState,setLoginStateFalse})=>{
     const eles=loginState?(
         <>
             <li>
@@ -46,7 +46,7 @@ const Nav=({username,loginState})=>{
                 <span>用户: {username}</span>
             </li>
             <li>
-                <a  href = "" > 退出登录 </a>
+                <span className="fakeA" onClick={setLoginStateFalse}>退出登录 </span>
             </li>
         </>
     ):(

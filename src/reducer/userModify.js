@@ -6,9 +6,9 @@ const initState={
         new_password:''
     },
     user_login:{
-        state:true,
-        username:'李四来登录',
-        password:'22222',
+        state:false,
+        username:'000111222',
+        password:'000111222',
         token: ""
     }
 };
@@ -21,7 +21,8 @@ const CHANGE_LOGINPASSWORD='CHANGE_LOGINPASSWORD';
 const LOGIN ='LOGIN';
 const REGISTER='REGISTER';
 const SETTOKEN='SETTOKEN';
-const TOGGLELOGINSTATE='TOGGLELOGINSTATE'
+const SETLOGINSTATETRUE='SETLOGINSTATETRUE'
+const SETLOGINSTATETRUEFALSE='SETLOGINSTATETRUEFALSE'
 function changeUsername(value){
     return{
         type:CHANGE_USERNAME,
@@ -74,10 +75,15 @@ function setToken(value) {
         value
     }
 }
-function toggleLoginState() {
+function setLoginStateTrue() {
 return{
-    type:TOGGLELOGINSTATE
+    type:SETLOGINSTATETRUE
 }
+}
+function setLoginStateFalse() {
+    return{
+        type:SETLOGINSTATETRUEFALSE
+    }
 }
 
 const user_newModifier=(state=initState,action)=>{
@@ -100,10 +106,14 @@ const user_newModifier=(state=initState,action)=>{
             return {...state,user_register: {...initState.user_register}}
         case 'SETTOKEN':
             return{...state, user_login:{...state.user_login,token: action.value }}
-        case 'TOGGLELOGINSTATE':
-                return{...state, user_login:{...state.user_login,state: !state.user_login.state }}
+        case 'SETLOGINSTATETRUE':
+                return{...state, user_login:{...state.user_login,state: true}}
+        case 'SETLOGINSTATEFALSE':
+            return{...state, user_login:{...state.user_login,state: false}}
 
     }
     return state;
 }
-export  {user_newModifier,changeUsername,changeWeChat,changePassword,renewPassword,changeLoginUsername,changeLoginPassword,register,login,setToken,toggleLoginState};
+export  {user_newModifier,
+    changeUsername,changeWeChat,changePassword,renewPassword,
+    changeLoginUsername,changeLoginPassword,register,login,setToken,setLoginStateTrue,setLoginStateFalse};
