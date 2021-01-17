@@ -1,12 +1,6 @@
-import React from "react";
-import NavConnect from "../container/NavConnect";
 import styled from "styled-components";
-const Header = styled.header`
-  max-width: 1200px;
-  @media (max-width: 600px) {
-    width: 100%;
-  }
-`;
+import React from 'react';
+
 const Main = styled.main`
   max-width: 1200px;
   padding: 40px;
@@ -97,50 +91,46 @@ const Main = styled.main`
     }
   }
 `;
-const Index = () => {
-    //TODO get请求获取活动列表，遍历生成列表
-  return (
-    <>
-      <Header>
-        <NavConnect />
-      </Header>
-      <Main>
-        <h3>所有活动</h3>
-        <ul>
-          <li>
-            <h4>
-              {/*  i.activity_name*/}
-              <span>活动208</span>
-              {/*href="/new_user/activity/{{ i.activity_number }}.html"*/}
-              <a>查看详情</a>
-            </h4>
-            <p>
+const Activities=(props)=>{
+    const {title}=props;
+    return(
+        <Main>
+            <h3>{title}</h3>
+            <ul>
+                {/*TODO 这里的活动是要根据数据遍历渲染出来的*/}
+                <li>
+                    <h4>
+                        {/*  i.activity_name*/}
+                        <span>活动208</span>
+                        {/*href="/new_user/activity/{{ i.activity_number }}.html"*/}
+                        <a>查看详情</a>
+                    </h4>
+                    <p>
               <span className="time">
                 <svg className="icon" aria-hidden="true">
                   <use xlinkHref="#icon-time"></use>
                 </svg>
-                {/*  i .activity_start_time-.activity_end_time.time*/}
-                &nbsp;0115周二 20:00-22:00
+                  {/*  i .activity_start_time-.activity_end_time.time*/}
+                  &nbsp;0115周二 20:00-22:00
               </span>
-              <span className="place">
+                        <span className="place">
                 <svg className="icon" aria-hidden="true">
                   <use xlinkHref="#icon-Place"></use>
                 </svg>
-                {/*  i .activity_place*/}
-                &nbsp; 龙腾羽毛球馆
+                            {/*  i .activity_place*/}
+                            &nbsp; 龙腾羽毛球馆
               </span>
-              <span className="place">
+                        <span className="place">
                 <svg className="icon" aria-hidden="true">
                   <use xlinkHref="#icon-PersonAvailable"></use>
                 </svg>
-                {/*  i.is_full*/}
-                &nbsp;<em>可报名</em>
+                            {/*  i.is_full*/}
+                            &nbsp;<em>可报名</em>
               </span>
-            </p>
-          </li>
-        </ul>
-      </Main>
-    </>
-  );
+                    </p>
+                </li>
+            </ul>
+        </Main>
+    )
 };
-export { Index };
+export {Activities};

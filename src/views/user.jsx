@@ -1,8 +1,11 @@
 import {Form} from "../components/form";
 import {post} from "../js/post";
-import {BottomNav} from "../components/BottomNav";
+import {BottomNav} from "../components/BottomNav.jsx";
+import React from 'react';
+import NavConnect from "../container/NavConnect";
+import {Activities} from "../container/activities";
 
-const Login=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLoginStateTrue})=>{
+const User=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLoginStateTrue})=>{
 const {username,password,state}=user_login;
     console.log(state)
 const onSubmit=(e)=>{
@@ -18,20 +21,26 @@ const onSubmit=(e)=>{
         }
     );
 };
-    return(
-        <>
+    let eles;
+    if(state){
+        eles=<>
+            <NavConnect />
+            <Activities title="我的活动"/>
+        </>
+    }else{
+        eles=<>
             <Form>
                 <h3>登录</h3>
                 <label>
-                <span>用户名:</span>
-                <input
-                    onChange={e => changeLoginUsername(e.target.value)                    }
-                    type="text"
-                    name="username"
-                    required="required"
-                    value={username}
-                />
-            </label>
+                    <span>用户名:</span>
+                    <input
+                        onChange={e => changeLoginUsername(e.target.value)                    }
+                        type="text"
+                        name="username"
+                        required="required"
+                        value={username}
+                    />
+                </label>
                 <label>
                     <span>密码:</span>
                     <input
@@ -48,6 +57,9 @@ const onSubmit=(e)=>{
             </Form>
             <BottomNav />
         </>
+    }
+    return(
+        <>{eles}</>
     )
 }
-export {Login}
+export {User}

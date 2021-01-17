@@ -3,13 +3,19 @@ const initState={
         username:'',
         weChat:'',
         password:'',
-        new_password:''
     },
     user_login:{
-        state:false,
-        username:'',
-        password:'',
+        state:true,
+        username:'张三',
+        password:'111',
         token: ""
+    },
+    user_modify:{
+        username:'',
+        new_username:'',
+        weChat:'',
+        password:'',
+        new_password:''
     }
 };
 

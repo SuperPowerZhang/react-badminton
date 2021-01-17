@@ -40,12 +40,10 @@ const BottomNav = () => {
   return (
     <NavWrapper>
       <li>
-        {" "}
         <NavLink to="/register">立即注册</NavLink>
       </li>
       <li>
-        {" "}
-        <NavLink to="/password_modify"> 修改密码</NavLink>{" "}
+        <NavLink to="/password_modify"> 修改密码</NavLink>
       </li>
     </NavWrapper>
   );

@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {Login} from '../View/login';
+import {User} from '../views/user';
 import {
     changeLoginUsername,
     changeLoginPassword,
@@ -33,6 +33,6 @@ const mapDispatchToProps=dispatch=>{
         }
     }
 };
-const UserLoginConnect=connect(mapStateToProps,mapDispatchToProps)(Login);
+const UserLoginConnect=connect(mapStateToProps,mapDispatchToProps)(User);
 
 export {UserLoginConnect};

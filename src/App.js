@@ -1,9 +1,9 @@
 import {NewUserInfo} from './container/NewUserInfo'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {Index} from './View'
+import {Index} from './views'
 import React from 'react'
 import {UserLoginConnect} from "./container/UserLoginConnect";
-import {PasswordModify} from "./View/passwordModify";
+import {PasswordModify} from "./views/passwordModify";
 
 function App() {
   return (

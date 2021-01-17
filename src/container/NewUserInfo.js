@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import Register from '../View/register';
+import Register from '../views/register';
 import {changeUsername, changeWeChat, changePassword, renewPassword, register} from '../reducer/actions'
 
 const mapStateToProps=state=>{
@@ -17,9 +17,6 @@ const mapDispatchToProps=dispatch=>{
         },
         changePassword:value=>{
             dispatch(changePassword(value))
-        },
-        renewPassword:value=>{
-            dispatch(renewPassword(value))
         },
         register:()=>{
             dispatch(register())
