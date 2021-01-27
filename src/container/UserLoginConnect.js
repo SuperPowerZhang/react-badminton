@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {User} from '../views/user';
+import User from '../views/user';
 import {
     changeLoginUsername,
     changeLoginPassword,

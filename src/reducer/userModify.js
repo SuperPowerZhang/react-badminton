@@ -5,7 +5,7 @@ const initState={
         password:'',
     },
     user_login:{
-        state:true,
+        state:false,
         username:'张三',
         password:'111',
         token: ""

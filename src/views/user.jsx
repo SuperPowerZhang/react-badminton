@@ -4,20 +4,20 @@ import {BottomNav} from "../components/BottomNav.jsx";
 import React from 'react';
 import NavConnect from "../container/NavConnect";
 import {Activities} from "../container/activities";
+import {withRouter} from "react-router-dom"
 
-const User=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLoginStateTrue})=>{
+const User=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLoginStateTrue,history})=>{
 const {username,password,state}=user_login;
-    console.log(state)
 const onSubmit=(e)=>{
     e.preventDefault();
-    console.log(username,password);
-    post('/new_user/api/login',{"username":"测试1214","password": "ceshi1214"}).then(
+    post('/new_user/api/login',{username,password}).then(
         (response)=>{
-            console.log(typeof response,(JSON.parse(response)).token);
-            setToken((JSON.parse(response)).token);
+            //接口：http://badminton.amberwuwu.com/myAPI/api/login
+            const {data}=JSON.parse(response);
+            const {token,user_id,username}=data;
+            setToken(data.token);
             setLoginStateTrue();
-            //TODO 这里刷新页面了(1)用户体验不好（2）登录状态丢失
-            window.open(`/`,"_self")
+            history.push("/")
         }
     );
 };
@@ -62,4 +62,4 @@ const onSubmit=(e)=>{
         <>{eles}</>
     )
 }
-export {User}
+export default withRouter(User)

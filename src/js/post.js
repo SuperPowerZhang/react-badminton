@@ -5,11 +5,12 @@ export function post(url,data) {
         req.setRequestHeader("Content-Type", "application/json");
         console.log(JSON.stringify(data));
         req.onload=function(){
-            console.log(req.responseText)
+            console.log(req.status,req.responseText)
                   if(req.status>=200&&req.status<400){
-                    resolve(req.response)
+                      console.log(112233)
+                    resolve(req.responseText)
                   }else {
-                    reject (req.response)
+                    reject (req.responseText)
                   }
         };
         req.send(JSON.stringify(data))

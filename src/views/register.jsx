@@ -61,7 +61,7 @@ const Register = ({
   let tips=null;
   const onSubmit=(e)=>{
     e.preventDefault();
-    post('/new_user/api/register/',{
+    post('/myAPI/api/register',{
       "username": username,
       "weChat": weChat,
       "password": password
