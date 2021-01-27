@@ -12,7 +12,6 @@ const onSubmit=(e)=>{
     e.preventDefault();
     post('/new_user/api/login',{username,password}).then(
         (response)=>{
-            //接口：http://badminton.amberwuwu.com/myAPI/api/login
             const {data}=JSON.parse(response);
             const {token,user_id,username}=data;
             setToken(data.token);
