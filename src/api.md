@@ -1,3 +1,4 @@
+- 整个文档：http://badminton.amberwuwu.com/docs/#myAPI-api-join-create
 - 接口：http://badminton.amberwuwu.com/myAPI/api/login
 
      成功的格式：

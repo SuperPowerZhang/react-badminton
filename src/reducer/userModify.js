@@ -5,6 +5,7 @@ const initState={
         password:'',
     },
     user_login:{
+        id:"",
         state:false,
         username:'张三',
         password:'111',

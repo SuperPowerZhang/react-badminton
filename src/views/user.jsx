@@ -17,6 +17,10 @@ const onSubmit=(e)=>{
             setToken(data.token);
             setLoginStateTrue();
             history.push("/")
+        },(response)=>{
+            const {msg,code,errors}=JSON.parse(response);
+            const {non_field_errors}=errors;
+            console.log(non_field_errors[0])
         }
     );
 };

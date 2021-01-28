@@ -6,7 +6,9 @@ export function post(url,data) {
         console.log(JSON.stringify(data));
         req.onload=function(){
             console.log(req.status,req.responseText)
-                  if(req.status>=200&&req.status<400){
+            const {code}=JSON.parse(req.responseText)
+                  //暂时用code代替req.status
+                  if(code>=200&&code<400){
                       console.log(112233)
                     resolve(req.responseText)
                   }else {
