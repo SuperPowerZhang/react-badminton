@@ -10,6 +10,7 @@ export const REGISTER='REGISTER';
 export const SETTOKEN='SETTOKEN';
 export const SETLOGINSTATETRUE='SETLOGINSTATETRUE';
 export const SETLOGINSTATETRUEFALSE='SETLOGINSTATETRUEFALSE';
+const SETLOGINID='SETLOGINID';
 const MODIFYPASSWORDUSERNAME='MODIFYPASSWORDUSERNAME';
 const MODIFYPASSWORD='MODIFYPASSWORD';
 
@@ -66,6 +67,12 @@ function setToken(value) {
         value
     }
 }
+function setLoginId(value) {
+    return{
+        type:SETLOGINID,
+        value
+    }
+}
 function setLoginStateTrue() {
     return{
         type:SETLOGINSTATETRUE
@@ -78,4 +85,5 @@ function setLoginStateFalse() {
 }
 
 export  {changeUsername,changeWeChat,changePassword,renewPassword,
-    changeLoginUsername,changeLoginPassword,register,login,setToken,setLoginStateTrue,setLoginStateFalse};
+    changeLoginUsername,changeLoginPassword,register,login,
+    setToken,setLoginId,setLoginStateTrue,setLoginStateFalse};

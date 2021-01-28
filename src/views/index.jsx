@@ -1,7 +1,7 @@
 import React from "react";
 import NavConnect from "../container/NavConnect";
 import styled from "styled-components";
-import {Activities} from "../container/activities";
+import {Activities} from "../components/activities";
 const Header = styled.header`
   max-width: 1200px;
   @media (max-width: 600px) {

@@ -5,10 +5,10 @@ const initState={
         password:'',
     },
     user_login:{
-        id:"",
+        id:'',
         state:false,
-        username:'张三',
-        password:'111',
+        username:'',
+        password:'',
         token: ""
     },
     user_modify:{
@@ -45,7 +45,8 @@ const user_newModifier=(state=initState,action)=>{
                 return{...state, user_login:{...state.user_login,state: true}}
         case 'SETLOGINSTATEFALSE':
             return{...state, user_login:{...state.user_login,state: false}}
-
+        case 'SETLOGINID':
+            return {...state,user_login:{...state.user_login,id: action.value}}
     }
     return state;
 }

@@ -37,8 +37,8 @@ background-color: #fff;
         }
     }
 `
-const Nav=({username,loginState,setLoginStateFalse,login})=>{
-    console.log(username,loginState);
+const Nav=({username,id,loginState,setLoginStateFalse,login})=>{
+    console.log(username,loginState,id);
     const onLogout=()=>{
         console.log(11111)
         login();
@@ -50,7 +50,8 @@ const Nav=({username,loginState,setLoginStateFalse,login})=>{
                 <svg className="icon" aria-hidden="true">
                     <use xlinkHref="#icon-badminton"></use>
                 </svg>
-                <span>用户: {username}</span>
+                <span>用户: {username} </span>
+                <span> ID: {id}</span>
             </li>
             <li>
                 <span className="fakeA" onClick={onLogout}>退出登录 </span>

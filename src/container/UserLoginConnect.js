@@ -3,7 +3,7 @@ import User from '../views/user';
 import {
     changeLoginUsername,
     changeLoginPassword,
-    login, setToken, setLoginStateTrue, setLoginStateFalse
+    login, setToken, setLoginId,setLoginStateTrue, setLoginStateFalse
 } from '../reducer/actions'
 
 const mapStateToProps=state=>{
@@ -24,6 +24,9 @@ const mapDispatchToProps=dispatch=>{
         },
         setToken:value=>{
             dispatch(setToken(value))
+        },
+        setLoginId:value=>{
+            dispatch(setLoginId(value))
         },
         setLoginStateTrue:()=>{
             dispatch(setLoginStateTrue())

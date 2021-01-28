@@ -3,11 +3,11 @@ import {post} from "../js/post";
 import {BottomNav} from "../components/BottomNav.jsx";
 import React from 'react';
 import NavConnect from "../container/NavConnect";
-import {Activities} from "../container/activities";
+import {Activities} from "../components/activities";
 import {withRouter} from "react-router-dom"
 
-const User=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLoginStateTrue,history})=>{
-const {username,password,state}=user_login;
+const User=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLoginId,setLoginStateTrue,history})=>{
+const {id,username,password,state}=user_login;
 const onSubmit=(e)=>{
     e.preventDefault();
     post('/new_user/api/login',{username,password}).then(
@@ -15,8 +15,10 @@ const onSubmit=(e)=>{
             const {data}=JSON.parse(response);
             const {token,user_id,username}=data;
             setToken(data.token);
+            console.log(user_id)
+            setLoginId(user_id);
             setLoginStateTrue();
-            history.push("/")
+            // history.push("/")
         },(response)=>{
             const {msg,code,errors}=JSON.parse(response);
             const {non_field_errors}=errors;

@@ -4,6 +4,7 @@ import {setLoginStateTrue,setLoginStateFalse,login} from "../reducer/actions";
 
 const mapStateToProps=state=>{
     return {
+        id:state.user_login.id,
         username:state.user_login.username,
         loginState:state.user_login.state
     }
