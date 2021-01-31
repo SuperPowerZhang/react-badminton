@@ -10,7 +10,7 @@ const User=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLogi
 const {id,username,password,state}=user_login;
 const onSubmit=(e)=>{
     e.preventDefault();
-    post('/new_user/api/login',{username,password}).then(
+    post('/new_user/api/login',{username,password},'POST').then(
         (response)=>{
             const {data}=JSON.parse(response);
             const {token,user_id,username}=data;

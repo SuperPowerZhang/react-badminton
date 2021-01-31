@@ -65,7 +65,7 @@ const Register = ({
       "username": username,
       "weChat": weChat,
       "password": password
-    }).then(({code,msg,data})=>{
+    },'POST').then(({code,msg,data})=>{
       console.log(msg)
     },(error)=>{
       let t=(JSON.parse(error)).username[0];

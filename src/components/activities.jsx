@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from 'react';
+import  {post} from '../js/post'
 
 const Main = styled.main`
   max-width: 1200px;
@@ -93,15 +94,15 @@ const Main = styled.main`
 `;
 const Activities=(props)=>{
     const {title}=props;
-    return(
-        <Main>
-            <h3>{title}</h3>
-            <ul>
-                {/*TODO 这里的活动是要根据数据遍历渲染出来的*/}
-                <li>
+   var activities=112334345456;
+    post('/myAPI/api/activity/','','GET').then((response)=>{
+        const {data}=JSON.parse(response);
+         activities=data.map((item,index)=>{
+            console.log(item["activity_number"])
+            return(
+                <li key={item["activity_number"]}>
                     <h4>
-                        {/*  i.activity_name*/}
-                        <span>活动208</span>
+                        <span>{item["activity_name"]}</span>
                         {/*href="/new_user/activity/{{ i.activity_number }}.html"*/}
                         <a>查看详情</a>
                     </h4>
@@ -111,24 +112,35 @@ const Activities=(props)=>{
                   <use xlinkHref="#icon-time"></use>
                 </svg>
                   {/*  i .activity_start_time-.activity_end_time.time*/}
-                  &nbsp;0115周二 20:00-22:00
+                  &nbsp;{item["activity_start_time"]}-{item["activity_end_time"]}
               </span>
                         <span className="place">
                 <svg className="icon" aria-hidden="true">
                   <use xlinkHref="#icon-Place"></use>
                 </svg>
-                            {/*  i .activity_place*/}
-                            &nbsp; 龙腾羽毛球馆
+                            &nbsp; {item["activity_place"]}
               </span>
                         <span className="place">
                 <svg className="icon" aria-hidden="true">
                   <use xlinkHref="#icon-PersonAvailable"></use>
                 </svg>
                             {/*  i.is_full*/}
-                            &nbsp;<em>可报名</em>
+                            &nbsp;<em>{item["is_alive"]}</em>
               </span>
                     </p>
                 </li>
+            )
+        })
+        console.log(activities)
+    },(error)=>{
+        console.log(error)
+    });
+    console.log(activities)
+    return(
+        <Main>
+            <h3>{title}</h3>
+            <ul>
+                {activities}
             </ul>
         </Main>
     )

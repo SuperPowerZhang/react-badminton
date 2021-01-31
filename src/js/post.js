@@ -1,7 +1,7 @@
-export function post(url,data) {
+export function post(url,data,method) {
     return new Promise((resolve, reject)=>{
         let req=new XMLHttpRequest();
-        req.open('POST',url);
+        req.open(method,url);
         req.setRequestHeader("Content-Type", "application/json");
         console.log(JSON.stringify(data));
         req.onload=function(){
