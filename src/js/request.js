@@ -1,4 +1,4 @@
-export function post(url,data,method) {
+export function request(url, data, method) {
     return new Promise((resolve, reject)=>{
         let req=new XMLHttpRequest();
         req.open(method,url);

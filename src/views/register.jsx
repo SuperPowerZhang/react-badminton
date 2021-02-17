@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {Form} from '../components/form'
-import {post} from "../js/post";
+import {request} from "../js/request";
 
 const Header = styled.header`
 margin-top: 60px;
@@ -61,7 +61,7 @@ const Register = ({
   let tips=null;
   const onSubmit=(e)=>{
     e.preventDefault();
-    post('/myAPI/api/register',{
+    request('/myAPI/api/register',{
       "username": username,
       "weChat": weChat,
       "password": password
@@ -84,7 +84,7 @@ const Register = ({
       <Main>
         <section>
           {tips}
-          <Form className="form" action="" method="post">
+          <Form className="form" action="" method="request">
             <h3>注册</h3>
             <label>
               <span>用户名:</span>

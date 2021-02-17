@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import NavConnect from "../container/NavConnect";
 import {Link, useHistory} from "react-router-dom";
-import {post} from "../js/post";
+import {request} from "../js/request";
 import React from 'react';
 import {getTime} from "../js/getTime";
 
@@ -148,7 +148,7 @@ const ActivityDetail=(props)=>{
     React.useEffect(()=>{
         let url="/myAPI/api/activity/?activity_name="+getParams(path);
         console.log(url)
-        post(url,'','GET').then((response)=>{
+        request(url,'','GET').then((response)=>{
             const {data}=JSON.parse(response);
             const time=getTime(data[0]["activity_start_time"],data[0]["activity_end_time"])
             const remain=getRemaind(data[0]["limit_count"],data[0]["count"])

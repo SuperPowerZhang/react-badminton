@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React from 'react';
-import  {post} from '../js/post'
+import  {request} from '../js/request'
 import { Link } from "react-router-dom";
 import {getTime} from "../js/getTime";
 
@@ -99,7 +99,6 @@ const Activities=(props)=>{
     const initialActivities=[];
     const {title}=props,
         [activities,setActivities]=React.useState(initialActivities);
-
     //判断某个活动在activities是否已经存在的函数。因为每个item增加了time属性，判断重复的时候删除右边的大括号即可
     const checkDuplication=(origin,newItem)=>{
         const origin1=JSON.stringify(origin)
@@ -108,7 +107,7 @@ const Activities=(props)=>{
     }
     //页面第一次渲染的生命周期中去获取activities数据
     React.useEffect(()=>{
-        post('/myAPI/api/activity/','','GET').then((response)=>{
+        request('/myAPI/api/activity/','','GET').then((response)=>{
             const {data}=JSON.parse(response);
             data.map((item,index)=>{
                 if(checkDuplication(activities,item)) {
