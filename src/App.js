@@ -1,7 +1,7 @@
-import {NewUserInfo} from './container/NewUserInfo'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {Index} from './views'
-import React from 'react'
+import {NewUserInfo} from './container/NewUserInfo';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {Index} from './views';
+import React from 'react';
 import {UserLoginConnect} from "./container/UserLoginConnect";
 import {PasswordModify} from "./views/passwordModify";
 import {ActivityDetail} from './views/activityDetail';
@@ -23,7 +23,8 @@ function App() {
               <Route path="/password_modify" component={PasswordModify} >
               <PasswordModify />
               </Route>
-              <Route path="/activity_detail" component={ActivityDetail} >
+              {/*TODO 目前api用的活动名*/}
+              <Route path="/detail/:id" component={ActivityDetail} >
                   <ActivityDetail />
               </Route>
           </Switch>

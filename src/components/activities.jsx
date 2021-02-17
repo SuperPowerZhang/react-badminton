@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import React from 'react';
 import  {post} from '../js/post'
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import {getTime} from "../js/getTime";
 
 const Main = styled.main`
   max-width: 1200px;
@@ -29,6 +30,7 @@ const Main = styled.main`
         > span {
           margin-left: 0;
           margin-right: 0;
+          }
           > a {
             margin-left: 0;
             margin-right: 0;
@@ -36,7 +38,6 @@ const Main = styled.main`
             font-size: 16px;
             line-height: 22px;
           }
-        }
       }
       > p {
         max-width: 1200px;
@@ -96,46 +97,43 @@ const Main = styled.main`
 
 const Activities=(props)=>{
     const initialActivities=[];
-    let history = useHistory();
     const {title}=props,
         [activities,setActivities]=React.useState(initialActivities);
-    const getTime=(a,b)=>{
-        let a1=new Date(a)
-        let b1=new Date(b)
-        return ""+a1.getFullYear()+"-"+(a1.getMonth()+1)+"-"+a1.getDate()+" "
-            +a1.getHours()+":"+(a1.getMinutes()<10?"0"+a1.getMinutes():a1.getMinutes())+"-"+b1.getHours()+":"+(b1.getMinutes()<10?"0"+b1.getMinutes():b1.getMinutes())
+
+    //判断某个活动在activities是否已经存在的函数。因为每个item增加了time属性，判断重复的时候删除右边的大括号即可
+    const checkDuplication=(origin,newItem)=>{
+        const origin1=JSON.stringify(origin)
+        const newItem1=JSON.stringify(newItem)
+       return origin1.indexOf(newItem1.substring(0,newItem1.length-1))===-1;
     }
+    //页面第一次渲染的生命周期中去获取activities数据
     React.useEffect(()=>{
         post('/myAPI/api/activity/','','GET').then((response)=>{
             const {data}=JSON.parse(response);
             data.map((item,index)=>{
-                if(JSON.stringify(activities).indexOf(JSON.stringify(item))===-1) {
+                if(checkDuplication(activities,item)) {
                     const time=getTime(item["activity_start_time"],item["activity_end_time"])
-                    console.log(time);
                     setActivities((oldActivities) => {
                         return [...oldActivities, {...item,"time":time}]
                     })
+                }else {
+                    console.error("重复了")
                 }
             })
         },(error)=>{
             console.log(error)
         });
     },[])
-    const onClickDetail=(e)=>{
-        e.preventDefault();
-        history.push("/activity_detail");
-        console.log(111111)
-    }
+
     return(
         <Main>
             <h3>{title}</h3>
-            <ul>{
-           activities.map((item)=>{
+            <ul>{activities.map((item)=>{
             return(
                 <li key={item["activity_number"]}>
                     <h4>
                         <span>{item["activity_name"]}</span>
-                        <a onClick={onClickDetail} >查看详情</a>
+                        <Link to={`/detail/${item["activity_name"]}`}  >查看详情</Link>
                     </h4>
                     <p>
               <span className="time">
@@ -158,8 +156,7 @@ const Activities=(props)=>{
               </span>
                     </p>
                 </li>
-            )
-            })}
+            )})}
             </ul>
         </Main>
     )
