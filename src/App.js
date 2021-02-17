@@ -4,6 +4,8 @@ import {Index} from './views'
 import React from 'react'
 import {UserLoginConnect} from "./container/UserLoginConnect";
 import {PasswordModify} from "./views/passwordModify";
+import {ActivityDetail} from './views/activityDetail';
+
 
 function App() {
   return (
@@ -19,7 +21,10 @@ function App() {
                   <UserLoginConnect />
               </Route>
               <Route path="/password_modify" component={PasswordModify} >
-                  <PasswordModify />
+              <PasswordModify />
+              </Route>
+              <Route path="/activity_detail" component={ActivityDetail} >
+                  <ActivityDetail />
               </Route>
           </Switch>
       </Router>

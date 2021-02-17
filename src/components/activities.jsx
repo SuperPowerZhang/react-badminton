@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React from 'react';
 import  {post} from '../js/post'
+import { useHistory } from "react-router-dom";
 
 const Main = styled.main`
   max-width: 1200px;
@@ -92,26 +93,48 @@ const Main = styled.main`
     }
   }
 `;
+
 const Activities=(props)=>{
-    const {title}=props;
-   var activities=112334345456;
-    post('/myAPI/api/activity/','','GET').then((response)=>{
-        const {data}=JSON.parse(response);
-         activities=data.map((item,index)=>{
-            console.log(item["activity_number"])
+    const initialActivities=[];
+    let history = useHistory();
+    const {title}=props,
+        [activities,setActivities]=React.useState(initialActivities);
+    React.useEffect(()=>{
+        post('/myAPI/api/activity/','','GET').then((response)=>{
+            const {data}=JSON.parse(response);
+            data.map((item,index)=>{
+                if(JSON.stringify(activities).indexOf(JSON.stringify(item))===-1) {
+                    console.log(item["activity_start_time"])
+                    setActivities((oldActivities) => {
+                        return [...oldActivities, item]
+                    })
+                }
+            })
+        },(error)=>{
+            console.log(error)
+        });
+    },[])
+    const onClickDetail=(e)=>{
+        e.preventDefault();
+        history.push("/activity_detail");
+        console.log(111111)
+    }
+    return(
+        <Main>
+            <h3>{title}</h3>
+            <ul>{
+           activities.map((item)=>{
             return(
                 <li key={item["activity_number"]}>
                     <h4>
                         <span>{item["activity_name"]}</span>
-                        {/*href="/new_user/activity/{{ i.activity_number }}.html"*/}
-                        <a>查看详情</a>
+                        <a onClick={onClickDetail} >查看详情</a>
                     </h4>
                     <p>
               <span className="time">
                 <svg className="icon" aria-hidden="true">
                   <use xlinkHref="#icon-time"></use>
                 </svg>
-                  {/*  i .activity_start_time-.activity_end_time.time*/}
                   &nbsp;{item["activity_start_time"]}-{item["activity_end_time"]}
               </span>
                         <span className="place">
@@ -124,23 +147,12 @@ const Activities=(props)=>{
                 <svg className="icon" aria-hidden="true">
                   <use xlinkHref="#icon-PersonAvailable"></use>
                 </svg>
-                            {/*  i.is_full*/}
-                            &nbsp;<em>{item["is_alive"]}</em>
+                            &nbsp;<em>{item["is_full"]?"已报满":"可报名"}</em>
               </span>
                     </p>
                 </li>
             )
-        })
-        console.log(activities)
-    },(error)=>{
-        console.log(error)
-    });
-    console.log(activities)
-    return(
-        <Main>
-            <h3>{title}</h3>
-            <ul>
-                {activities}
+            })}
             </ul>
         </Main>
     )
