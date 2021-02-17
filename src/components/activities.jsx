@@ -99,14 +99,21 @@ const Activities=(props)=>{
     let history = useHistory();
     const {title}=props,
         [activities,setActivities]=React.useState(initialActivities);
+    const getTime=(a,b)=>{
+        let a1=new Date(a)
+        let b1=new Date(b)
+        return ""+a1.getFullYear()+"-"+(a1.getMonth()+1)+"-"+a1.getDate()+" "
+            +a1.getHours()+":"+(a1.getMinutes()<10?"0"+a1.getMinutes():a1.getMinutes())+"-"+b1.getHours()+":"+(b1.getMinutes()<10?"0"+b1.getMinutes():b1.getMinutes())
+    }
     React.useEffect(()=>{
         post('/myAPI/api/activity/','','GET').then((response)=>{
             const {data}=JSON.parse(response);
             data.map((item,index)=>{
                 if(JSON.stringify(activities).indexOf(JSON.stringify(item))===-1) {
-                    console.log(item["activity_start_time"])
+                    const time=getTime(item["activity_start_time"],item["activity_end_time"])
+                    console.log(time);
                     setActivities((oldActivities) => {
-                        return [...oldActivities, item]
+                        return [...oldActivities, {...item,"time":time}]
                     })
                 }
             })
@@ -135,7 +142,7 @@ const Activities=(props)=>{
                 <svg className="icon" aria-hidden="true">
                   <use xlinkHref="#icon-time"></use>
                 </svg>
-                  &nbsp;{item["activity_start_time"]}-{item["activity_end_time"]}
+                  &nbsp;{item["time"]}
               </span>
                         <span className="place">
                 <svg className="icon" aria-hidden="true">
