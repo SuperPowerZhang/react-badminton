@@ -65,6 +65,8 @@ const Main=styled.main`
  .tab  p{
     font-size:16px;
     line-height: 24px;
+    //TODO 场地文字的缝隙太小了，可以自己替换下或者数据库改改
+    letter-spacing:1px;
 }
  .tab   a{
     color: rgb(3, 104, 214);
@@ -135,16 +137,42 @@ display: inline-block;
 
 const ActivityDetail=(props)=>{
     const path=useHistory().location.pathname,
-        [detail,setDetail]=React.useState({"activities": []});
+        [detail,setDetail]=React.useState({"activities": []}),
+        [result,setResult]=React.useState([]);
     //得到路径活动x
     const getParams=(path)=>{
         let index=path.indexOf("活");
         return path.substring(index,path.length)
-    }
+    };
     //计算剩余名额
     const getRemaind=(a,b)=>{
         return  a>b?a-b:0
-    }
+    };
+    //报名
+    const signUp=()=>{
+        const data={
+            "activity_number": detail["activity_number"],
+            "joiner": 222 ,
+            "is_substitution": detail["is_full"]
+        }
+        console.log(JSON.stringify(data));
+        request("/myAPI/api/substitution",data,'POST').then((response)=>{
+            const {code,data}=JSON.parse(response);
+            console.log(data)
+            setResult(()=>{
+                return [code,"报名成功"]
+            })
+        },(error)=>{
+            console.log(error)
+            const {code,data}=JSON.parse(error);
+            let msg=data["non_field_errors"]||data["joiner"]||data["activity_number"]||"报名失败";
+            setResult(()=>{
+                return [code,msg]
+            })
+        });
+    };
+    // TODO 弹窗，弹窗关掉之后重置result
+
     React.useEffect(()=>{
         let url="/myAPI/api/activity/?activity_name="+getParams(path);
         console.log(url)
@@ -167,13 +195,14 @@ const ActivityDetail=(props)=>{
             </Header>
             <Nav>
                 <div>已有 <span>{detail.count} </span> 人报名，余 <span>{detail["remain"]}</span> 个名额，满员后仅可替补。</div>
-                <button id="signUpForActivity">
+                <button id="signUpForActivity" onClick={signUp}>
                     {/*TODO 判断登录的用户是否已经报名了，如果报名了这里是取消报名和取消替补*/}
                     {detail["is_full"]?"报名替补":"报名"}
                 </button>
             </Nav>
             <Main>
                 <div className="tab">
+                    <p>{result[0]},{result[1]}</p>
                     <h3>活动详情</h3>
                     <div>
                         <p><svg className="icon" aria-hidden="true">
@@ -186,7 +215,7 @@ const ActivityDetail=(props)=>{
                         <p><svg className="icon" aria-hidden="true">
                             <use xlinkHref="#icon-Place"></use>
                         </svg>
-                            <a  href=""> {detail["activity_place"]}</a></p>
+                             {detail["activity_place"]}</p>
                     </div>
                 </div>
                 <div className="persons">

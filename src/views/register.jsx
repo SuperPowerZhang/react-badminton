@@ -45,6 +45,9 @@ const Main = styled.main`
         margin-top: 10px;
         margin-bottom: 10px;
       }
+      label span{
+      display: block;
+      }
     }
   }
 `;

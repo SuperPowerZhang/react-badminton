@@ -35,6 +35,8 @@ import React from "react";
           width: 80px;
           @media (max-width: 600px) {
           line-height: 42px;
+          display: block;
+          width: 100%;
           }
         }
         > input {

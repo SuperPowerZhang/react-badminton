@@ -8,6 +8,7 @@ import {withRouter} from "react-router-dom";
 import styled from "styled-components";
 
 const Section=styled.section`
+//应该用form的样式，再改回来
 display: flex;
 flex-direction: column;
 margin-left: 20px;
