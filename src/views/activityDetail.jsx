@@ -134,12 +134,51 @@ display: inline-block;
     margin-right: 0;
 }
 `;
-
+const Mask=styled.div`
+position: absolute;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background-color: rgba(8, 8, 8, 0.31);
+z-index:100;
+display: flex;
+>div{
+background-color:#fff;
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: auto;
+padding: 20px;
+border-radius: 6px;
+@media (max-width: 600px) {
+width: 50vw;
+}
+>p{
+text-align: center;
+}
+>button{
+ background-color: rgb(46, 164, 79);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 18px;
+    margin-top: 20px;
+    @media (max-width: 600px) {
+        padding: 5px 10px;
+        max-width:52px;
+        font-size: 16px;
+    }
+}
+}
+`;
 const ActivityDetail=(props)=>{
     const path=useHistory().location.pathname,
         [detail,setDetail]=React.useState({"activities": []}),
-        [result,setResult]=React.useState([]);
-    //得到路径活动x
+        [result,setResult]=React.useState([,"111"]),
+        [pop,setPop]=React.useState(false);
+        const origin=path.match(/\/(\S*)\//)[1]
+        const title=origin==="all"?"所有活动":"我的活动"
     const getParams=(path)=>{
         let index=path.indexOf("活");
         return path.substring(index,path.length)
@@ -148,6 +187,23 @@ const ActivityDetail=(props)=>{
     const getRemaind=(a,b)=>{
         return  a>b?a-b:0
     };
+    const closePop=()=>{
+        getDeatils();
+        setPop(()=>{
+            return false
+        })
+        setResult(()=>{
+            return []
+        })
+    }
+    const showPop=(code,msg)=>{
+        setResult(()=>{
+            return [code,msg]
+        })
+        setPop(()=>{
+            return true
+        })
+    }
     //报名
     const signUp=()=>{
         const data={
@@ -155,25 +211,18 @@ const ActivityDetail=(props)=>{
             "joiner": 222 ,
             "is_substitution": detail["is_full"]
         }
-        console.log(JSON.stringify(data));
         request("/myAPI/api/substitution",data,'POST').then((response)=>{
             const {code,data}=JSON.parse(response);
-            console.log(data)
-            setResult(()=>{
-                return [code,"报名成功"]
-            })
+            let msg="报名成功"
+            showPop(code,msg);
         },(error)=>{
             console.log(error)
             const {code,data}=JSON.parse(error);
-            let msg=data["non_field_errors"]||data["joiner"]||data["activity_number"]||"报名失败";
-            setResult(()=>{
-                return [code,msg]
-            })
+            let msg=data[0]||data["joiner"][0]||data["activity_number"][0]||"报名失败";
+            showPop(code,msg);
         });
     };
-    // TODO 弹窗，弹窗关掉之后重置result
-
-    React.useEffect(()=>{
+    const getDeatils=()=>{
         let url="/myAPI/api/activity/?activity_name="+getParams(path);
         console.log(url)
         request(url,'','GET').then((response)=>{
@@ -186,7 +235,15 @@ const ActivityDetail=(props)=>{
         },(error)=>{
             console.log(error)
         });
-    },[])
+    }
+    const Pop=pop?<>
+        <Mask>
+            <div >
+                <p>{result[1]}</p>
+                <button onClick={closePop}>确定</button>
+            </div>
+        </Mask></>:<></>
+        React.useEffect(getDeatils,[])
     return(
         <>
             {/*TODO 这里登录状态和没登录状态应该要不一致的*/}
@@ -202,8 +259,7 @@ const ActivityDetail=(props)=>{
             </Nav>
             <Main>
                 <div className="tab">
-                    <p>{result[0]},{result[1]}</p>
-                    <h3>活动详情</h3>
+                    <h3><Link to={`/${origin}`} >{title}</Link> / {detail["activity_name"]}</h3>
                     <div>
                         <p><svg className="icon" aria-hidden="true">
                             <use xlinkHref="#icon-time"></use>
@@ -226,11 +282,11 @@ const ActivityDetail=(props)=>{
                         </li>
                         {/*TODO 翻页功能*/}
                         {detail["activities"].map((item, index) => {
+                            console.log(item)
                                 return (
                                     <li key={index}>
                                         <span>{item["joiner"]}</span>
-                                        {/*/!*TODO 缺了是否替补属性*!/*/}
-                                        <span className="substitute">正式</span>
+                                        <span className="substitute">{item["is_substitution"]?"替补":"正式"}</span>
                                     </li>
                                 )
                             })
@@ -238,7 +294,7 @@ const ActivityDetail=(props)=>{
                     </ul>
                 </div>
             </Main>
-
+            {Pop}
         </>
     )
 }

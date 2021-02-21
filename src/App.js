@@ -20,11 +20,14 @@ function App() {
               <Route path="/login" component={UserLoginConnect} >
                   <UserLoginConnect />
               </Route>
+              <Route path="/my" exact component={UserLoginConnect} >
+                  <UserLoginConnect />
+              </Route>
               <Route path="/password_modify" component={PasswordModify} >
               <PasswordModify />
               </Route>
               {/*TODO 目前api用的活动名*/}
-              <Route path="/detail/:id" component={ActivityDetail} >
+              <Route path="/:path/:id" component={ActivityDetail} >
                   <ActivityDetail />
               </Route>
           </Switch>

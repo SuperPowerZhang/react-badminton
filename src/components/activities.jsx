@@ -98,7 +98,8 @@ const Main = styled.main`
 const Activities=(props)=>{
     const initialActivities=[];
     const {title}=props,
-        [activities,setActivities]=React.useState(initialActivities);
+        [activities,setActivities]=React.useState(initialActivities),
+        origin=title==="所有活动"?"all":"my";
     //判断某个活动在activities是否已经存在的函数。因为每个item增加了time属性，判断重复的时候删除右边的大括号即可
     const checkDuplication=(origin,newItem)=>{
         const origin1=JSON.stringify(origin)
@@ -132,7 +133,7 @@ const Activities=(props)=>{
                 <li key={item["activity_number"]}>
                     <h4>
                         <span>{item["activity_name"]}</span>
-                        <Link to={`/detail/${item["activity_name"]}`}  >查看详情</Link>
+                        <Link to={`/${origin}/${item["activity_name"]}`}  >查看详情</Link>
                     </h4>
                     <p>
               <span className="time">
