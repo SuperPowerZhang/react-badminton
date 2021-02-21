@@ -204,27 +204,39 @@ const ActivityDetail=(props)=>{
             return true
         })
     }
-    //报名
+    const getJoiner=()=>{
+        const id=document.getElementById("id")
+            return id?id.innerHTML:""
+    }
+    //报名，报名的时候需要先取id，id不存在弹窗告知登录。后面就是根据请求的结果判断了
     const signUp=()=>{
         const data={
             "activity_number": detail["activity_number"],
-            "joiner": 222 ,
+            //TODO 获取id，暂时先从页面拿，回头需要改成从redux拿的
+            "joiner": getJoiner() ,
             "is_substitution": detail["is_full"]
         }
-        request("/myAPI/api/substitution",data,'POST').then((response)=>{
-            const {code,data}=JSON.parse(response);
-            let msg="报名成功"
-            showPop(code,msg);
-        },(error)=>{
-            console.log(error)
-            const {code,data}=JSON.parse(error);
-            let msg=data[0]||data["joiner"][0]||data["activity_number"][0]||"报名失败";
-            showPop(code,msg);
-        });
+        if(data.joiner){
+            request("/myAPI/api/substitution",data,'POST').then((response)=>{
+                const {code,data}=JSON.parse(response);
+                if(code>=200&&code <400){
+                    showPop(code,"报名成功");
+                }else{
+                    showPop(code,"报名失败");
+                }
+            },(error)=>{
+                console.log(error)
+                const {code,data}=JSON.parse(error);
+                let msg=data[0]||"报名失败";
+                showPop(code,msg);
+            });
+        }else{
+            showPop(400,"请先登录");
+        }
+
     };
     const getDeatils=()=>{
         let url="/myAPI/api/activity/?activity_name="+getParams(path);
-        console.log(url)
         request(url,'','GET').then((response)=>{
             const {data}=JSON.parse(response);
             const time=getTime(data[0]["activity_start_time"],data[0]["activity_end_time"])
@@ -282,7 +294,6 @@ const ActivityDetail=(props)=>{
                         </li>
                         {/*TODO 翻页功能*/}
                         {detail["activities"].map((item, index) => {
-                            console.log(item)
                                 return (
                                     <li key={index}>
                                         <span>{item["joiner"]}</span>

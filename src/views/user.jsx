@@ -4,8 +4,9 @@ import {BottomNav} from "../components/BottomNav.jsx";
 import React from 'react';
 import NavConnect from "../container/NavConnect";
 import {Activities} from "../components/activities";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import styled from "styled-components";
+import {AllLink} from '../components/AllLink'
 
 const Section=styled.section`
 //应该用form的样式，再改回来
@@ -93,8 +94,9 @@ const onSubmit=(e)=>{
             setToken(data.token);
             console.log(user_id)
             setLoginId(user_id);
+            history.push("/my");
             setLoginStateTrue();
-            // history.push("/")
+
         },(response)=>{
             const {msg,code,errors}=JSON.parse(response);
             const {non_field_errors}=errors;
@@ -107,6 +109,7 @@ const onSubmit=(e)=>{
         eles=<>
             <NavConnect />
             <Activities title="我的活动"/>
+            <AllLink />
         </>
     }else{
         eles=<>

@@ -11,7 +11,11 @@ function App() {
   return (
       <Router>
           <Switch>
+              {/*/重定向到all*/}
               <Route  path="/" exact component={Index} >
+                  <Index/>
+              </Route >
+              <Route  path="/all" exact component={Index} >
                   <Index/>
               </Route >
               <Route path="/register" component={NewUserInfo} >

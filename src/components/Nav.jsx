@@ -51,7 +51,7 @@ const Nav=({username,id,loginState,setLoginStateFalse,login})=>{
                     <use xlinkHref="#icon-badminton"></use>
                 </svg>
                 <span>用户: {username} </span>
-                <span> ID: {id}</span>
+                ID: <span id="id">{id}</span>
             </li>
             <li>
                 <span className="fakeA" onClick={onLogout}>退出登录 </span>
