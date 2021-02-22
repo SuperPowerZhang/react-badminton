@@ -121,16 +121,16 @@ const Register = ({
                 value={password}
               />
             </label>
-            <label>
-              <span>新密码:</span>
-              <input
-                type="password"
-                onChange={(e) => renewPassword(e.target.value)}
-                name="new_password"
-                required="new_password"
-                value={new_password}
-              />
-            </label>
+            {/*<label>*/}
+            {/*  <span>新密码:</span>*/}
+            {/*  <input*/}
+            {/*    type="password"*/}
+            {/*    onChange={(e) => renewPassword(e.target.value)}*/}
+            {/*    name="new_password"*/}
+            {/*    required="new_password"*/}
+            {/*    value={new_password}*/}
+            {/*  />*/}
+            {/*</label>*/}
             <button type="submit" className="submit" onClick={onSubmit}>
               确定
             </button>
