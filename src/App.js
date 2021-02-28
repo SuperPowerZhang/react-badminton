@@ -1,10 +1,11 @@
 import {NewUserInfo} from './container/NewUserInfo';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import {Index} from './views';
 import React from 'react';
 import {UserLoginConnect} from "./container/UserLoginConnect";
 import {PasswordModify} from "./views/passwordModify";
 import {ActivityDetail} from './views/activityDetail';
+import Login from "./views/login";
 
 
 function App() {
@@ -12,17 +13,17 @@ function App() {
       <Router>
           <Switch>
               {/*/重定向到all*/}
-              <Route  path="/" exact component={Index} >
+              <Redirect  from="/" to="/all"  exact component={Index} >
                   <Index/>
-              </Route >
+              </Redirect >
               <Route  path="/all" exact component={Index} >
                   <Index/>
               </Route >
               <Route path="/register" component={NewUserInfo} >
                   <NewUserInfo />
               </Route>
-              <Route path="/login" component={UserLoginConnect} >
-                  <UserLoginConnect />
+              <Route path="/login" component={Login} >
+                  <Login />
               </Route>
               <Route path="/my" exact component={UserLoginConnect} >
                   <UserLoginConnect />

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {NavLink} from "react-router-dom";
+import {NavLink,Link} from "react-router-dom";
 import React from "react";
 import {login} from "../reducer/userModify";
 const NavWrapper=styled.ul`
@@ -47,11 +47,13 @@ const Nav=({username,id,loginState,setLoginStateFalse,login})=>{
     const eles=loginState?(
         <>
             <li>
+                <Link to="/my">
                 <svg className="icon" aria-hidden="true">
                     <use xlinkHref="#icon-badminton"></use>
                 </svg>
                 <span>用户: {username} </span>
                 ID: <span id="id">{id}</span>
+                </Link>
             </li>
             <li>
                 <span className="fakeA" onClick={onLogout}>退出登录 </span>

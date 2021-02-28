@@ -221,85 +221,48 @@ const onSubmit=(e)=>{
         }
     );
 };
-    React.useEffect(getMyAct,[])
-    let eles;
-    if(state){
-        eles=<>
-            <NavConnect />
-            <Main>
-                <h3>我的活动</h3>
-                <ul>{myAct.map((item)=>{
-                    if(item["is_alive"]){
-                        return(
-                            <li key={item["activity_number"]}>
-                                <h4>
-                                    <span>{item["activity_name"]}</span>
-                                    <Link to={`/my/${item["activity_name"]}`}  >查看详情</Link>
-                                </h4>
-                                <p>
+React.useEffect(getMyAct,[])
+return(
+    <>
+        <NavConnect />
+        <Main>
+            <h3>我的活动</h3>
+            <ul>{myAct.map((item)=>{
+                if(item["is_alive"]){
+                    return(
+                        <li key={item["activity_number"]}>
+                            <h4>
+                                {/*TODO api返回里面没有时间*/}
+                                <span>{item["activity_name"]}</span>
+                                <Link to={`/my/${item["activity_name"]}`}  >查看详情</Link>
+                            </h4>
+                            <p>
               <span className="time">
                 <svg className="icon" aria-hidden="true">
                   <use xlinkHref="#icon-time"></use>
                 </svg>
                   &nbsp;{item["time"]}
               </span>
-                                    <span className="place">
+                                <span className="place">
                 <svg className="icon" aria-hidden="true">
                   <use xlinkHref="#icon-Place"></use>
                 </svg>
-                                        &nbsp; {item["activity_place"]}
+                                    &nbsp; {item["activity_place"]}
               </span>
-              {/*                      <span className="place">*/}
-              {/*  <svg className="icon" aria-hidden="true">*/}
-              {/*    <use xlinkHref="#icon-PersonAvailable"></use>*/}
-              {/*  </svg>*/}
-              {/*                          &nbsp;<em>{item["is_full"]?"已报满":"可报名"}</em>*/}
-              {/*</span>*/}
-                                </p>
-                            </li>
-                        )}})
-                    }
-                </ul>
-            </Main>
-            <AllLink />
-        </>
-    }else{
-        eles=<>
-            <Section>
-                <header>
-                    <h3>登录</h3>
-                </header>
-               <main>
-                      <label>
-                          <span>用户名:</span>
-                          <input
-                              onChange={e => changeLoginUsername(e.target.value)                    }
-                              type="text"
-                              name="username"
-                              required="required"
-                              value={username}
-                          />
-                      </label>
-                      <label>
-                          <span>密码:</span>
-                          <input
-                              type="password"
-                              onChange={e =>  changeLoginPassword(e.target.value)                        }
-                              name="password"
-                              required="required"
-                              value={password}
-                          />
-                      </label>
-                      <button type="submit" className="submit" onClick={onSubmit}>
-                          确定
-                      </button>
-               </main>
-            </Section>
-            <BottomNav />
-        </>
-    }
-    return(
-        <>{eles}</>
-    )
+                                {/*                      <span className="place">*/}
+                                {/*  <svg className="icon" aria-hidden="true">*/}
+                                {/*    <use xlinkHref="#icon-PersonAvailable"></use>*/}
+                                {/*  </svg>*/}
+                                {/*                          &nbsp;<em>{item["is_full"]?"已报满":"可报名"}</em>*/}
+                                {/*</span>*/}
+                            </p>
+                        </li>
+                    )}})
+            }
+            </ul>
+        </Main>
+        <AllLink />
+    </>
+)
 }
 export default withRouter(User)
