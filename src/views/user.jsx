@@ -7,6 +7,7 @@ import {Activities} from "../components/activities";
 import {Link, withRouter} from "react-router-dom";
 import styled from "styled-components";
 import {AllLink} from '../components/AllLink'
+import {Consumer} from '../index'
 
 const Section=styled.section`
 //应该用form的样式，再改回来
@@ -173,96 +174,97 @@ const Main = styled.main`
     }
   }
 `;
-const User=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLoginId,setLoginStateTrue,history})=>{
-const {id,username,password,state}=user_login;
-const  [myAct,setMyAct]=React.useState([])
-const getMyAct=()=>{
-    request('/myAPI/api/activityDetail/','','GET').then((response)=>{
-        const allAct=JSON.parse(response);
-            allAct.forEach(item=>{
-                const {join_name,activities}=item
-                if((join_name===username) && (myAct.indexOf(activities)===-1) && activities["is_alive"]){
-                    setMyAct((old)=>{
-                        return [...old,item["activities"]]
-                    })
-                }
-        })
-        return myAct
-    },(error)=>{
-        const allAct=JSON.parse(error)
-        allAct.forEach(item=>{
-            const {join_name,activities}=item
-            if((join_name===username) && (JSON.stringify(myAct).indexOf(JSON.stringify(activities))===-1) && activities["is_alive"]){
-                setMyAct((old)=>{
-                    return [...old,item["activities"]]
-                })
-            }
-        })
-        console.log(myAct)
-        return myAct
-    })
-}
-const onSubmit=(e)=>{
-    e.preventDefault();
-    request('/new_user/api/login',{username,password},'POST').then(
-        (response)=>{
-            const {data}=JSON.parse(response);
-            const {token,user_id,username}=data;
-            setToken(data.token);
-            console.log(user_id)
-            setLoginId(user_id);
-            history.push("/my");
-            setLoginStateTrue();
-            getMyAct()
-        },(response)=>{
-            const {msg,code,errors}=JSON.parse(response);
-            const {non_field_errors}=errors;
-            console.log(non_field_errors[0])
-        }
-    );
-};
-React.useEffect(getMyAct,[])
+// const User=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLoginId,setLoginStateTrue,history})=>{
+// const {id,username,password,state}=user_login;
+// const  [myAct,setMyAct]=React.useState([])
+// const getMyAct=()=>{
+//     request('/myAPI/api/activityDetail/','','GET').then((response)=>{
+//         const allAct=JSON.parse(response);
+//             allAct.forEach(item=>{
+//                 const {join_name,activities}=item
+//                 if((join_name===username) && (myAct.indexOf(activities)===-1) && activities["is_alive"]){
+//                     setMyAct((old)=>{
+//                         return [...old,item["activities"]]
+//                     })
+//                 }
+//         })
+//         return myAct
+//     },(error)=>{
+//         const allAct=JSON.parse(error)
+//         allAct.forEach(item=>{
+//             const {join_name,activities}=item
+//             if((join_name===username) && (JSON.stringify(myAct).indexOf(JSON.stringify(activities))===-1) && activities["is_alive"]){
+//                 setMyAct((old)=>{
+//                     return [...old,item["activities"]]
+//                 })
+//             }
+//         })
+//         console.log(myAct)
+//         return myAct
+//     })
+// }
+// const onSubmit=(e)=>{
+//     e.preventDefault();
+//     request('/new_user/api/login',{username,password},'POST').then(
+//         (response)=>{
+//             const {data}=JSON.parse(response);
+//             const {token,user_id,username}=data;
+//             setToken(data.token);
+//             console.log(user_id)
+//             setLoginId(user_id);
+//             history.push("/my");
+//             setLoginStateTrue();
+//             getMyAct()
+//         },(response)=>{
+//             const {msg,code,errors}=JSON.parse(response);
+//             const {non_field_errors}=errors;
+//             console.log(non_field_errors[0])
+//         }
+//     );
+// };
+// React.useEffect(getMyAct,[])
+const User=()=>{
+    const state=React.useContext(state)
 return(
-    <>
-        <NavConnect />
-        <Main>
-            <h3>我的活动</h3>
-            <ul>{myAct.map((item)=>{
-                if(item["is_alive"]){
-                    return(
-                        <li key={item["activity_number"]}>
-                            <h4>
-                                {/*TODO api返回里面没有时间*/}
-                                <span>{item["activity_name"]}</span>
-                                <Link to={`/my/${item["activity_name"]}`}  >查看详情</Link>
-                            </h4>
-                            <p>
-              <span className="time">
-                <svg className="icon" aria-hidden="true">
-                  <use xlinkHref="#icon-time"></use>
-                </svg>
-                  &nbsp;{item["time"]}
-              </span>
-                                <span className="place">
-                <svg className="icon" aria-hidden="true">
-                  <use xlinkHref="#icon-Place"></use>
-                </svg>
-                                    &nbsp; {item["activity_place"]}
-              </span>
-                                {/*                      <span className="place">*/}
-                                {/*  <svg className="icon" aria-hidden="true">*/}
-                                {/*    <use xlinkHref="#icon-PersonAvailable"></use>*/}
-                                {/*  </svg>*/}
-                                {/*                          &nbsp;<em>{item["is_full"]?"已报满":"可报名"}</em>*/}
-                                {/*</span>*/}
-                            </p>
-                        </li>
-                    )}})
-            }
-            </ul>
-        </Main>
-        <AllLink />
-    </>
-)
-}
-export default withRouter(User)
+   <div>{state}</div>
+)}
+        {/*<NavConnect />*/}
+        {/*<Main>*/}
+        {/*    <h3>我的活动</h3>*/}
+        {/*    <ul>{myAct.map((item)=>{*/}
+        {/*        if(item["is_alive"]){*/}
+        {/*            return(*/}
+        {/*                <li key={item["activity_number"]}>*/}
+        {/*                    <h4>*/}
+        {/*                        /!*TODO api返回里面没有时间*!/*/}
+        {/*                        <span>{item["activity_name"]}</span>*/}
+        {/*                        <Link to={`/my/${item["activity_name"]}`}  >查看详情</Link>*/}
+        {/*                    </h4>*/}
+        {/*                    <p>*/}
+        {/*      <span className="time">*/}
+        {/*        <svg className="icon" aria-hidden="true">*/}
+        {/*          <use xlinkHref="#icon-time"></use>*/}
+        {/*        </svg>*/}
+        {/*          &nbsp;{item["time"]}*/}
+        {/*      </span>*/}
+        {/*                        <span className="place">*/}
+        {/*        <svg className="icon" aria-hidden="true">*/}
+        {/*          <use xlinkHref="#icon-Place"></use>*/}
+        {/*        </svg>*/}
+        {/*                            &nbsp; {item["activity_place"]}*/}
+        {/*      </span>*/}
+        {/*                        /!*                      <span className="place">*!/*/}
+        {/*                        /!*  <svg className="icon" aria-hidden="true">*!/*/}
+        {/*                        /!*    <use xlinkHref="#icon-PersonAvailable"></use>*!/*/}
+        {/*                        /!*  </svg>*!/*/}
+        {/*                        /!*                          &nbsp;<em>{item["is_full"]?"已报满":"可报名"}</em>*!/*/}
+        {/*                        /!*</span>*!/*/}
+        {/*                    </p>*/}
+        {/*                </li>*/}
+        {/*            )}})*/}
+        {/*    }*/}
+        {/*    </ul>*/}
+        {/*</Main>*/}
+        {/*<AllLink />*/}
+
+export default User;
