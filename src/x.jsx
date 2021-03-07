@@ -1,18 +1,17 @@
+import React, { useContext } from "react";
+import { MyContext } from "./App";
 
-import React,{useContext } from 'react'
-import {MyContext} from "./App";
+const X = () => {
+  const { state, modifyState } = useContext(MyContext);
+  const xyz = () => {
+    data.modifyState();
+  };
+  return (
+    <>
+      <div>{state["user_register"].username}</div>
+      <button onClick={xyz}>xxxx</button>
+    </>
+  );
+};
 
-const X=()=>{
-    const data=useContext(MyContext)
-    const xyz=()=>{
-        data.modifyState()
-    }
-    return (
-        <>
-        <div>{data.state}</div>
-        <button onClick={xyz}>xxxx</button>
-            </>
-    )
-}
-
-export {X}
+export { X };

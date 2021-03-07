@@ -1,7 +1,7 @@
 import React from "react";
-import NavConnect from "../container/NavConnect";
 import styled from "styled-components";
 import {Activities} from "../components/activities";
+import {Nav} from "../components/Nav";
 const Header = styled.header`
   max-width: 1200px;
   @media (max-width: 600px) {
@@ -14,7 +14,7 @@ const Index = () => {
   return (
     <>
       <Header>
-        <NavConnect />
+        <Nav />
       </Header>
       <Activities title="所有活动" />
     </>
