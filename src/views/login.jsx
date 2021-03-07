@@ -1,8 +1,9 @@
+//TODO 样式用Form
 import { Form } from "../components/form";
 import { request } from "../js/request";
 import { BottomNav } from "../components/BottomNav.jsx";
 import React, { useContext } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { AllLink } from "../components/AllLink";
 import { MyContext } from "../App";
@@ -174,62 +175,35 @@ const Main = styled.main`
     }
   }
 `;
-const Login = () => {
-  const { state, modifyState } = useContext(MyContext);
+const Login = (props) => {
+  const { state, modifyLogin } = useContext(MyContext);
+    console.log(props)
   const {id,username,password}=state["user_login"];
-    console.log(username)
     const changeLoginUsername=(value)=>{
-        console.log({username:value})
-        modifyState("user_login",{username:value})
+        modifyLogin({'username':value})
     }
-  // const {id,username,password,state}=user_login;
-  // const  [myAct,setMyAct]=React.useState([])
-  // const getMyAct=()=>{
-  //     request('/myA PI/api/activityDetail/','','GET').then((response)=>{
-  //         const allAct=JSON.parse(response);
-  //         allAct.forEach(item=>{
-  //             const {join_name,activities}=item
-  //             if((join_name===username) && (myAct.indexOf(activities)===-1) && activities["is_alive"]){
-  //                 setMyAct((old)=>{
-  //                     return [...old,item["activities"]]
-  //                 })
-  //             }
-  //         })
-  //         return myAct
-  //     },(error)=>{
-  //         const allAct=JSON.parse(error)
-  //         allAct.forEach(item=>{
-  //             const {join_name,activities}=item
-  //             if((join_name===username) && (JSON.stringify(myAct).indexOf(JSON.stringify(activities))===-1) && activities["is_alive"]){
-  //                 setMyAct((old)=>{
-  //                     return [...old,item["activities"]]
-  //                 })
-  //             }
-  //         })
-  //         console.log(myAct)
-  //         return myAct
-  //     })
-  // }
-  // const onSubmit=(e)=>{
-  //     e.preventDefault();
-  //     request('/new_user/api/login',{username,password},'POST').then(
-  //         (response)=>{
-  //             const {data}=JSON.parse(response);
-  //             const {token,user_id,username}=data;
-  //             setToken(data.token);
-  //             console.log(user_id)
-  //             setLoginId(user_id);
-  //             history.push("/my");
-  //             setLoginStateTrue();
-  //             getMyAct()
-  //         },(response)=>{
-  //             const {msg,code,errors}=JSON.parse(response);
-  //             const {non_field_errors}=errors;
-  //             console.log(non_field_errors[0])
-  //         }
-  //     );
-  // };
-  // React.useEffect(getMyAct,[])
+    const changeLoginPassword=(value)=>{
+        modifyLogin({'password':value})
+    }
+    const toMy=()=>{
+        props.history.push("/my");
+    }
+  const onSubmit=(e)=>{
+      e.preventDefault();
+      request('/new_user/api/login',{username,password},'POST').then(
+          (response)=>{
+              const {data}=JSON.parse(response);
+              const {token,user_id,username}=data;
+              //TODO token
+              modifyLogin({'id':user_id})
+              toMy()
+          },(response)=>{
+              const {msg,code,errors}=JSON.parse(response);
+              const {non_field_errors}=errors;
+              console.log(non_field_errors[0])
+          }
+      );
+  };
   return (
     <>
       <Section>
@@ -247,20 +221,20 @@ const Login = () => {
               value={username}
             />
           </label>
-          {/*<label>*/}
-          {/*  <span>密码:</span>*/}
-          {/*  <input*/}
-          {/*    type="password"*/}
-          {/*    // onChange={e =>  changeLoginPassword(e.target.value)                        }*/}
-          {/*    name="password"*/}
-          {/*    required="required"*/}
-          {/*    value={password}*/}
-          {/*  />*/}
-          {/*</label>*/}
+          <label>
+            <span>密码:</span>
+            <input
+              type="password"
+              onChange={e =>  changeLoginPassword(e.target.value)                        }
+              name="password"
+              required="required"
+              value={password}
+            />
+          </label>
           <button
             type="submit"
             className="submit"
-            // onClick={onSubmit}
+            onClick={onSubmit}
           >
             确定
           </button>
@@ -270,4 +244,4 @@ const Login = () => {
     </>
   );
 };
-export default Login;
+export default withRouter(Login);

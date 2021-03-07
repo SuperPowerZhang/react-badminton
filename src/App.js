@@ -9,9 +9,9 @@ import { Index } from "./views";
 import React, { createContext, useState } from "react";
 import { PasswordModify } from "./views/passwordModify";
 import { ActivityDetail } from "./views/activityDetail";
-import Login from "./views/login";
 import User from "./views/user";
 import { X } from "./x";
+import Login from './views/login'
 
 export const MyContext = createContext();
 
@@ -25,7 +25,7 @@ function App() {
     user_login: {
       id: "",
       state: false,
-      username: "sdfgh",
+      username: "",
       password: "",
       token: "",
     },
@@ -38,17 +38,13 @@ function App() {
     },
   };
   const [state, setState] = useState(initState);
-  const modifyState = (flag,data)=>{
-    console.log(flag,data)
-    let newFlag={...state[flag],...data}
-    console.log(newFlag)
+  const modifyLogin = (data)=>{
+    let newData={...state["user_login"],...data}
     setState((state) => {
-      console.log(flag)
-      return { ...state, flag:newFlag };
+      return { ...state, 'user_login':newData };
     });
-    console.log(state)
   };
-  const data = { state, modifyState };
+  const data = { state, modifyLogin };
 
   return (
     <MyContext.Provider value={data}>
@@ -63,66 +59,15 @@ function App() {
           <Route path="/login" component={Login}>
             <Login />
           </Route>
+           <Route path="/my" exact component={User} >
+             <User />
+           </Route>
           <Route path="/x" component={X}>
             <X />
           </Route>
         </Switch>
       </Router>
     </MyContext.Provider>
-  );
-}
-{
-  /*<Router>*/
-}
-{
-  /*    <Switch>*/
-}
-
-{
-  /*        <Route path="/register" component={NewUserInfo} >*/
-}
-{
-  /*            <NewUserInfo />*/
-}
-{
-  /*        </Route>*/
-}
-
-{
-  /*        <Route path="/my" exact component={User} >*/
-}
-{
-  /*            <User />*/
-}
-{
-  /*        </Route>*/
-}
-{
-  /*        <Route path="/password_modify" component={PasswordModify} >*/
-}
-{
-  /*        <PasswordModify />*/
-}
-{
-  /*        </Route>*/
-}
-{
-  /*        /!*TODO 目前api用的活动名*!/*/
-}
-{
-  /*        <Route path="/:path/:id" component={ActivityDetail} >*/
-}
-{
-  /*            <ActivityDetail />*/
-}
-{
-  /*        </Route>*/
-}
-{
-  /*    </Switch>*/
-}
-{
-  /*</Router>*/
-}
-
+  )}
+  {/*<Route path="/:path/:id" component={ActivityDetail} >*/}
 export default App;
