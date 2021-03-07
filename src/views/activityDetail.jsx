@@ -177,7 +177,7 @@ const Mask = styled.div`
 
 const ActivityDetail = (props) => {
     const { state } = useContext(MyContext);
-  const { id, username } = state;
+  const { id, username } = state["user_login"];
   const path = useHistory().location.pathname,
     [detail, setDetail] = React.useState({ activities: [] }),
     [result, setResult] = React.useState([, ""]),
@@ -241,6 +241,8 @@ const ActivityDetail = (props) => {
   const ButtonStatus = "";
   const getDeatils = () => {
     let url = "/myAPI/api/activity/?activity_name=" + getParams(path);
+    //TODO 可以直接从state里面拿了
+
     request(url, "", "GET").then(
       (response) => {
         const { data } = JSON.parse(response);
@@ -294,8 +296,7 @@ const ActivityDetail = (props) => {
           <span>{detail["remain"]}</span> 个名额，满员后仅可替补。
         </div>
         <button id="signUpForActivity" onClick={signUp}>
-          {/*TODO 判断登录的用户是否已经报名了，如果报名了这里是取消报名和取消替补*/}
-          {detail["is_full"] ? "报名替补" : "报名"}
+          {ButtonStatus}
         </button>
       </MyNav>
       <Main>

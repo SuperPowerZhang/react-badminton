@@ -33,8 +33,11 @@ const NavWrapper = styled.ul`
     line-height: 60px;
     padding-left: 10px;
     padding-right: 10px;
-    > li a {
-      font-size: 14px;
+    > li {
+      > a,
+      .fakeA {
+        font-size: 14px;
+      }
     }
   }
 `;

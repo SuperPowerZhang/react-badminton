@@ -57,11 +57,11 @@ const Main = styled.main`
             font-size: 20px;
           }
         }
-        > .time {
+        > .time,.place  {
           width: 265px;
         }
-        > .place {
-          width: 150px;
+        > .formal .full {
+          width: 100px;
         }
       }
     }
@@ -90,11 +90,11 @@ const Main = styled.main`
             font-size: 18px;
           }
         }
-        > .time {
-          width: 235px;
+        > .time,.place  {
+          width: 200px;
         }
-        > .place {
-          width: 130px;
+        > .formal .full {
+          width: 50px;
         }
       }
     }
@@ -103,8 +103,8 @@ const Main = styled.main`
 
 const User = (props) => {
   const { state } = useContext(MyContext);
-  const activities=state["my_activities"]
-  console.log(activities)
+  const activities = state["my_activities"];
+  console.log(activities);
   return (
     <>
       <Nav />
@@ -126,42 +126,41 @@ const User = (props) => {
                       </svg>
                       &nbsp;{item["time"]}
                     </span>
+                    <span className="formal">
+                    {
+                      item["is_substitution"]?<>
+                        <svg className="icon" aria-hidden="true">
+                          <use xlinkHref="#icon-informal-copy"></use>
+                        </svg>
+                        &nbsp;<em>替补</em></>:<>
+                        <svg className="icon" aria-hidden="true">
+                          <use xlinkHref="#icon-formal"></use>
+                        </svg>
+                        &nbsp;<em>正式</em></>
+                    }
+                       </span>
                     <span className="place">
                       <svg className="icon" aria-hidden="true">
                         <use xlinkHref="#icon-Place"></use>
                       </svg>
                       &nbsp; {item["activity_place"]}
                     </span>
+
+                    <span className="full">
                     {
-                      item["is_substitution"]?
-                          <span className="place">
-                  <svg className="icon" aria-hidden="true">
-                    <use xlinkHref="#icon-informal-copy"></use>
-                  </svg>
-                            &nbsp;<em>替补</em>
-                </span>:
-                          <span className="place">
-                  <svg className="icon" aria-hidden="true">
-                    <use xlinkHref="#icon-formal"></use>
-                  </svg>
-                            &nbsp;<em>正式</em>
-                </span>
+                        item["is_full"]? <>
+                          <svg className="icon" aria-hidden="true">
+                            <use xlinkHref="#icon-PersonAvailable-1"></use>
+                          </svg>&nbsp;
+                          <em>已报满</em>
+                            </>:<>
+                        <svg className="icon" aria-hidden="true">
+                          <use xlinkHref="#icon-PersonAvailable"></use>
+                        </svg>
+                        &nbsp;<em>可报名</em>
+                        </>
                     }
-                    {
-                      item["is_full"]?
-                          <span className="place">
-                  <svg className="icon" aria-hidden="true">
-                    <use xlinkHref="#icon-PersonAvailable-1"></use>
-                  </svg>
-                            &nbsp;<em>已报满</em>
-                </span>:
-                          <span className="place">
-                  <svg className="icon" aria-hidden="true">
-                    <use xlinkHref="#icon-PersonAvailable"></use>
-                  </svg>
-                            &nbsp;<em>可报名</em>
-                </span>
-                    }
+                         </span>
                   </p>
                 </li>
               );
