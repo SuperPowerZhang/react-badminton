@@ -177,7 +177,6 @@ const Main = styled.main`
 `;
 const Login = (props) => {
   const { state, modifyLogin } = useContext(MyContext);
-    console.log(props)
   const {id,username,password}=state["user_login"];
     const changeLoginUsername=(value)=>{
         modifyLogin({'username':value})

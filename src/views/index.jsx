@@ -1,7 +1,8 @@
-import React from "react";
+import React,{useContext} from "react";
 import styled from "styled-components";
 import {Activities} from "../components/activities";
 import {Nav} from "../components/Nav";
+import {MyContext} from "../App";
 const Header = styled.header`
   max-width: 1200px;
   @media (max-width: 600px) {
@@ -10,13 +11,14 @@ const Header = styled.header`
 `;
 
 const Index = () => {
-    //TODO get请求获取活动列表，遍历生成列表
+    const {state}=useContext(MyContext)
+    const activities=state["all_activities"]
   return (
     <>
       <Header>
         <Nav />
       </Header>
-      <Activities title="所有活动" />
+      <Activities title="所有活动" activities={activities} />
     </>
   );
 };

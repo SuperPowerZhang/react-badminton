@@ -1,89 +1,15 @@
-import {Form} from "../components/form";
-import {request} from "../js/request";
-import {BottomNav} from "../components/BottomNav.jsx";
-import React from 'react';
+import { Form } from "../components/form";
+import { request } from "../js/request";
+import { BottomNav } from "../components/BottomNav.jsx";
+import React, { useContext } from "react";
 import NavConnect from "../container/NavConnect";
-import {Activities} from "../components/activities";
-import {Link, withRouter} from "react-router-dom";
+import { Activities } from "../components/activities";
+import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import {AllLink} from '../components/AllLink'
-import {Consumer} from '../index'
+import { AllLink } from "../components/AllLink";
+import { MyContext } from "../App";
+import { Nav } from "../components/Nav";
 
-const Section=styled.section`
-//应该用form的样式，再改回来
-display: flex;
-flex-direction: column;
-margin-left: 20px;
-margin-right: 20px;
-max-width: 600px;
-header {
-    margin-top: 60px;
-    margin-bottom: 40px;
-    position: relative;
-    height: 38px;
-}
-h3{
- position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    font-size: 38px;
-}
-@media(max-width:600px){
-    header{
-        margin-top: 30px;
-        margin-bottom: 20px;
-        height: 26px;
-    }
-    header h3{
-        font-size: 26px;
-    }
-}
-main {
-display: flex;
-flex-direction: column;
-    background-color: #fff;
-    font-size: 18px;
-    border-radius: 6px;
-  
- label{
- display: flex;
- flex-direction: column;
- margin-top: 10px;
-    }
-input, .submit {
-   height: 40px;
-   border: 1px solid rgb(174, 191, 207);
-    border-radius: 6px;
-    margin: 4px auto 8px;
-    font-size: 18px;
-    padding: 5px 16px;
-    }
-.submit {
-    color: #fff;
-    margin-top: 24px;
-    background-color: rgb(46, 164, 79);
-      height: 40px;
-}
-@media(max-width:600px){
-padding: 10px;
-    label{
-        margin-top: 6px;
-            }
-     input, .submit {
-        margin: 4px 0 8px;
-        height: 28px;
-        font-size: 16px;
-        border-radius: 4px;
-        padding: 3px 10px;
-    }
-    .submit {
-    margin-top:20px;
-    height: 40px;
-    }
-    }
-    }
-`;
 const Main = styled.main`
   max-width: 1200px;
   padding: 40px;
@@ -110,14 +36,14 @@ const Main = styled.main`
         > span {
           margin-left: 0;
           margin-right: 0;
-          }
-          > a {
-            margin-left: 0;
-            margin-right: 0;
-            color: rgb(3, 104, 214);
-            font-size: 16px;
-            line-height: 22px;
-          }
+        }
+        > a {
+          margin-left: 0;
+          margin-right: 0;
+          color: rgb(3, 104, 214);
+          font-size: 16px;
+          line-height: 22px;
+        }
       }
       > p {
         max-width: 1200px;
@@ -174,97 +100,78 @@ const Main = styled.main`
     }
   }
 `;
-// const User=({user_login,changeLoginUsername,changeLoginPassword,setToken,setLoginId,setLoginStateTrue,history})=>{
-// const {id,username,password,state}=user_login;
-// const  [myAct,setMyAct]=React.useState([])
-// const getMyAct=()=>{
-//     request('/myAPI/api/activityDetail/','','GET').then((response)=>{
-//         const allAct=JSON.parse(response);
-//             allAct.forEach(item=>{
-//                 const {join_name,activities}=item
-//                 if((join_name===username) && (myAct.indexOf(activities)===-1) && activities["is_alive"]){
-//                     setMyAct((old)=>{
-//                         return [...old,item["activities"]]
-//                     })
-//                 }
-//         })
-//         return myAct
-//     },(error)=>{
-//         const allAct=JSON.parse(error)
-//         allAct.forEach(item=>{
-//             const {join_name,activities}=item
-//             if((join_name===username) && (JSON.stringify(myAct).indexOf(JSON.stringify(activities))===-1) && activities["is_alive"]){
-//                 setMyAct((old)=>{
-//                     return [...old,item["activities"]]
-//                 })
-//             }
-//         })
-//         console.log(myAct)
-//         return myAct
-//     })
-// }
-// const onSubmit=(e)=>{
-//     e.preventDefault();
-//     request('/new_user/api/login',{username,password},'POST').then(
-//         (response)=>{
-//             const {data}=JSON.parse(response);
-//             const {token,user_id,username}=data;
-//             setToken(data.token);
-//             console.log(user_id)
-//             setLoginId(user_id);
-//             history.push("/my");
-//             setLoginStateTrue();
-//             getMyAct()
-//         },(response)=>{
-//             const {msg,code,errors}=JSON.parse(response);
-//             const {non_field_errors}=errors;
-//             console.log(non_field_errors[0])
-//         }
-//     );
-// };
-// React.useEffect(getMyAct,[])
-const User=()=>{
-    const state=React.useContext(state)
-return(
-   <div>{state}</div>
-)}
-        {/*<NavConnect />*/}
-        {/*<Main>*/}
-        {/*    <h3>我的活动</h3>*/}
-        {/*    <ul>{myAct.map((item)=>{*/}
-        {/*        if(item["is_alive"]){*/}
-        {/*            return(*/}
-        {/*                <li key={item["activity_number"]}>*/}
-        {/*                    <h4>*/}
-        {/*                        /!*TODO api返回里面没有时间*!/*/}
-        {/*                        <span>{item["activity_name"]}</span>*/}
-        {/*                        <Link to={`/my/${item["activity_name"]}`}  >查看详情</Link>*/}
-        {/*                    </h4>*/}
-        {/*                    <p>*/}
-        {/*      <span className="time">*/}
-        {/*        <svg className="icon" aria-hidden="true">*/}
-        {/*          <use xlinkHref="#icon-time"></use>*/}
-        {/*        </svg>*/}
-        {/*          &nbsp;{item["time"]}*/}
-        {/*      </span>*/}
-        {/*                        <span className="place">*/}
-        {/*        <svg className="icon" aria-hidden="true">*/}
-        {/*          <use xlinkHref="#icon-Place"></use>*/}
-        {/*        </svg>*/}
-        {/*                            &nbsp; {item["activity_place"]}*/}
-        {/*      </span>*/}
-        {/*                        /!*                      <span className="place">*!/*/}
-        {/*                        /!*  <svg className="icon" aria-hidden="true">*!/*/}
-        {/*                        /!*    <use xlinkHref="#icon-PersonAvailable"></use>*!/*/}
-        {/*                        /!*  </svg>*!/*/}
-        {/*                        /!*                          &nbsp;<em>{item["is_full"]?"已报满":"可报名"}</em>*!/*/}
-        {/*                        /!*</span>*!/*/}
-        {/*                    </p>*/}
-        {/*                </li>*/}
-        {/*            )}})*/}
-        {/*    }*/}
-        {/*    </ul>*/}
-        {/*</Main>*/}
-        {/*<AllLink />*/}
+
+const User = (props) => {
+  const { state } = useContext(MyContext);
+  const activities=state["my_activities"]
+  console.log(activities)
+  return (
+    <>
+      <Nav />
+      <Main>
+        <h3>我的活动</h3>
+        <ul>
+          {activities.map((item) => {
+            if (item["is_alive"]) {
+              return (
+                <li key={item["activity_number"]}>
+                  <h4>
+                    <span>{item["activity_name"]}</span>
+                    <Link to={`/my/${item["activity_name"]}`}>查看详情</Link>
+                  </h4>
+                  <p>
+                    <span className="time">
+                      <svg className="icon" aria-hidden="true">
+                        <use xlinkHref="#icon-time"></use>
+                      </svg>
+                      &nbsp;{item["time"]}
+                    </span>
+                    <span className="place">
+                      <svg className="icon" aria-hidden="true">
+                        <use xlinkHref="#icon-Place"></use>
+                      </svg>
+                      &nbsp; {item["activity_place"]}
+                    </span>
+                    {
+                      item["is_substitution"]?
+                          <span className="place">
+                  <svg className="icon" aria-hidden="true">
+                    <use xlinkHref="#icon-informal-copy"></use>
+                  </svg>
+                            &nbsp;<em>替补</em>
+                </span>:
+                          <span className="place">
+                  <svg className="icon" aria-hidden="true">
+                    <use xlinkHref="#icon-formal"></use>
+                  </svg>
+                            &nbsp;<em>正式</em>
+                </span>
+                    }
+                    {
+                      item["is_full"]?
+                          <span className="place">
+                  <svg className="icon" aria-hidden="true">
+                    <use xlinkHref="#icon-PersonAvailable-1"></use>
+                  </svg>
+                            &nbsp;<em>已报满</em>
+                </span>:
+                          <span className="place">
+                  <svg className="icon" aria-hidden="true">
+                    <use xlinkHref="#icon-PersonAvailable"></use>
+                  </svg>
+                            &nbsp;<em>可报名</em>
+                </span>
+                    }
+                  </p>
+                </li>
+              );
+            }
+          })}
+        </ul>
+      </Main>
+      <AllLink />
+    </>
+  );
+};
 
 export default User;
